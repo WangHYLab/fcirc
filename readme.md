@@ -104,9 +104,9 @@ The columns' meaning is as following:
 **FCI** - the normalized expression of f-circRNA(reads count/sequencing depth/fusion gene length). 
 
 ## Quick start
-SRR3239817 from NCBI, a NB4 sample sequenced with single-end, 75bp can be test here.
+SRR3239817 from NCBI, a NB4 sample（test.fastq has been reduced in test_data） sequenced with single-end, 75bp can be test here.
 ```
-python fcirc.py -t 4 -o fcirc_out -x grch37_tran/genome_tran -f known_fusion_dir -1 SRR3239817.fastq
+python fcirc.py -t 4 -o fcirc_out -x grch37_tran/genome_tran -f known_fusion_dir -1 test_data/test.fastq
 ```
 It may cost about half an hour,if it runs succcessfully, some log information will be printed as following:
 ```
