@@ -19,6 +19,10 @@ For running fcirc it is needed a computer with:
 * samtools [http://www.htslib.org/download/](https://note.youdao.com/)http://www.htslib.org/download/)
 * some python packages which be insatalled by pip as following:
 ```
+pip install -r requirements.txt
+```
+or
+```
 pip install numpy
 pip install scipy
 pip install pysam
