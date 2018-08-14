@@ -16,7 +16,7 @@ For running fcirc it is needed a computer with:
 ```
 #### Installing required dependencies
 * hisat2 [http://ccb.jhu.edu/software/hisat2/index.shtml](http://ccb.jhu.edu/software/hisat2/index.shtml)
-* samtools [http://www.htslib.org/download/](https://note.youdao.com/)http://www.htslib.org/download/)
+* samtools [http://www.htslib.org/download/](http://www.htslib.org/download/)
 * some python packages which be insatalled by pip as following:
 ```
 pip install -r requirements.txt
