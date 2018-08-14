@@ -152,9 +152,9 @@ The columns' meaning is as following:
 **2. FcircRNA information** is stored in file **'fcircRNA_results.tsv'** as the format:
 ```
 #FcircRNA_NO	Fusion Name	Backsplice start	Backsplice end	FusionBreakPoint Pos	FusionSeq Length	Support FcircRNA Reads Count	Support FcircRNA Reads	                FcircRNA Strand Count(+,-)	FCI
-No_1        	PML-RARA	1014            	1635	        1183	                2394	            1	                            SRR3239817.17199266	                    0,1	                        8.407767446938172e-12
-No_2	        PML-RARA	155	                1301        	1183	                2394	            2	                            SRR3239817.2305597,SRR3239817.17076681  0,2	                        1.6815534893876344e-11
-No_3        	PML-RARA	198	                1725	        1183	                2394	            2	                            SRR3239817.4206524,SRR3239817.46897792	0,2	                        1.6815534893876344e-11
+No_1        	PML-RARA	1014            	1635	        1183	                2394	            	1	                            SRR3239817.17199266	                    0,1	                        8.407767446938172e-12
+No_2	        PML-RARA	155	                1301        	1183	                2394	            	2	                            SRR3239817.2305597,SRR3239817.17076681  0,2	                        1.6815534893876344e-11
+No_3        	PML-RARA	198	                1725	        1183	                2394	            	2	                            SRR3239817.4206524,SRR3239817.46897792	0,2	                        1.6815534893876344e-11
 No_4        	PML-RARA	493	                1298	        1183	                2394            	1	                            SRR3239817.1361558                  	0,1	                        8.407767446938172e-12
 ...
 ...
