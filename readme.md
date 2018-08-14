@@ -1,66 +1,7 @@
 # Fcirc
 *Fcirc* is a pipeline for transcripts and circRNAs of known fusions exploration. The sourcse of known fusion genes is from database [COSMIC](https://cancer.sanger.ac.uk/cosmic/fusion) and gene-pairs user added. It cost less time to find fusion-related(fusion forward splicing and back-splicing transripts) reads with higher sensitity than novel detecting fusion methods. The steps of *fcirc* are as folowing:
-```
-graph TB
-zo["single-end or paired-end reads"]
 
-B("aligning to the transcriptome with high penalty")
-
-
-M("getting gene pairs from known fusion database COSMIC")
-N("putting genes into two buckets(bipartite graph)")
-O("building two special indexes from buckets' sequences")
-
-D("re-aligning to both reference fusions independently with low penalty")
-F("selecting the PCC reads in paired genes by featured FLAG and CIGAR")
-
-
-G("predicting the fusion breakpoint")
-H("reconstructing sequences of the fusion genes")
-I("re-aligning to the reconstructed fusion gene with low penalty")
-K("verifying fragment length distribution near the fusion breakpoint")
-
-L3["fusion genes"]
-
-L("changing the order of aligned and unaligned segment of reads")
-L1("re-aligning to reconstructed fusion genes")
-L2["fusion circular RNAs"]
-
-
-zo-->B
-subgraph Dropping aligned reads
-B
-end
-
-B--reads unaligned to transcriptome-->D
-
-subgraph  Building a birpartite graph of gene pairs of known fusions
-M-->N
-N-->O
-end
-
-O--reference fusions-->D
-
-subgraph Selecting fusion-related reads
-D-- reads aligned to both fusions-->F
-end
-
-F--fusion-related reads-->G
-
-subgraph Reconstructing and verifying the fusion genes
-G-->H
-H-->I
-I--aligned reads-->K
-end
-
-K-->L
-K-->L3
-subgraph Transforming back-spliced reads
-L--transformed reads-->L1
-end
-L1--aligned reads-->L2
-```
-
+![image](https://github.com/WangHYLab/fcirc/ppl.png)
 
 ## Installation
 *Fcirc* is written by **python3**, requiring [hisat2](http://ccb.jhu.edu/software/hisat2/index.shtml) for aligning reads, [samtools](http://www.htslib.org/download/) for selecting reads and python packages numpy,scipy,pysam.
@@ -71,7 +12,7 @@ For running fcirc it is needed a computer with:
 
 #### Installing fcirc from Github Clone
 ```
-    git clone https://github.com/XXXX/XX
+    git clone https://github.com/WangHYLab/fcirc
 ```
 #### Installing required dependencies
 * hisat2 [http://ccb.jhu.edu/software/hisat2/index.shtml](http://ccb.jhu.edu/software/hisat2/index.shtml)
