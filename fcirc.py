@@ -76,10 +76,15 @@ def main(argvs):
     fastq2_path = ''
     trans_idx_path = ''
     fusion_idx_dir_path = ''
-
+  
     # temp arguments:
     pattern = ''
-
+    # genes coordinates file 
+    Software_dir=os.path.split(os.path.abspath(sys.argv[0]))[0]
+    Genes_coord=Software_dir+'/'+'Genes_Coordinate.txt'
+    if not os.path.exists(Genes_coord):
+        print('ERROR in finding Genes_Coordinate.txt,Please check Genes_Coordinate.txt exit in fcirc.py directory')
+        sys.exit(1)
 
     for opt, arg in opts:
         if opt in ('-h','--help'):
