@@ -1,7 +1,7 @@
 # Fcirc
 *Fcirc* is a pipeline for transcripts and circRNAs of known fusions exploration. The sourcse of known fusion genes is from the multiple databases [COSMIC,ChimerDB,TicDB,FARE-CAFE and FusionCancer]and gene-pairs user added. It cost less time to find fusion-related(fusion forward splicing and back-splicing transripts) reads with higher sensitity than novel detecting fusion methods. The steps of *fcirc* are as folowing:
 
-![image](https://github.com/WangHYLab/fcirc/raw/master/ppl.png)
+![image](https://github.com/WangHYLab/fcirc/raw/master/Fig 1. Fcirc pipeline.png)
 
 ## Installation
 *Fcirc* is written by **python3**, requiring [hisat2](http://ccb.jhu.edu/software/hisat2/index.shtml) for aligning reads, [samtools](http://www.htslib.org/download/) for selecting reads and python packages numpy,scipy,pysam.
@@ -32,7 +32,7 @@ Make sure that **hisat2** and **samtools** are add to envionment variables so th
 #### Preparing genome resource and known fusion-pairs
 * Genome resource is hisat2 index, which can be download from [hisat2 websites](http://ccb.jhu.edu/software/hisat2/index.shtml). For human fusion transcript detection, it's recommanded to use *genome_tran* of GRCh38 or GRCh37. It also can be finished with FASTA sequence file and annotation GTF file by hisat2's script.
 
-* Known fusion-pairs can be downloaded from database [COSMIC](https://cancer.sanger.ac.uk/cosmic/fusion) by script and bipartite fusions index can be build by hisat2-build as following:
+* Known fusion-pairs can be downloaded from Github page(https://cancer.sanger.ac.uk/cosmic/fusion) and bipartite fusions index can be build by hisat2-build as following:
 ```
 python3 downloadfusion.py known_fusion_dir
 cd known_fusion_dir
