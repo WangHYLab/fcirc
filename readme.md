@@ -1,7 +1,7 @@
 # Fcirc
 *Fcirc* is a pipeline for transcripts and circRNAs of known fusions exploration. The sourcse of known fusion genes is from the multiple databases [COSMIC,ChimerDB,TicDB,FARE-CAFE and FusionCancer]and gene-pairs user added. It cost less time to find fusion-related(fusion forward splicing and back-splicing transripts) reads with higher sensitity than novel detecting fusion methods. The steps of *fcirc* are as folowing:
 
-![Fcirc pipeline](https://github.com/WangHYLab/fcirc/raw/master/Fig 1. Fcirc pipeline.png  "fcirc pipeline")
+![Fcirc pipeline](https://github.com/WangHYLab/fcirc/raw/master/ "fcirc pipeline")
 
 ## Installation
 *Fcirc* is written by **python3**, requiring [hisat2](http://ccb.jhu.edu/software/hisat2/index.shtml) for aligning reads, [samtools](http://www.htslib.org/download/) for selecting reads and python packages numpy,scipy,pysam.
