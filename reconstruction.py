@@ -287,21 +287,11 @@ def reconstruct(filtered_U_sam, filtered_V_sam,Gene_coordinate,fusion_idx_dir = 
     return None
 
 
-
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s %(name)s %(levelname)s %(message)s",
                     datefmt = '%Y-%m-%d  %H:%M:%S %a')
     reconstruct(sys.argv[1], sys.argv[2],sys.argv[3],sys.argv[4])
-
-
-
-
-
-
-
-
-
 
 
 

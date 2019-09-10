@@ -46,17 +46,15 @@ def drop_unmapped_paired_tosam(samfile_path,thread='1'):
     #status = pysam.view('-@', thread, '-h', '-F', '12','-o', "temp/temp3.sam", samfile_path, catch_stdout=False)
     os.system("samtools view -@ {thread} -h -F 12 -o temp/temp3.sam {samfile} 2>/dev/null".format(thread=thread,
                                                                                          samfile=samfile_path))
+
     outsam_path = "temp/mapped_" + samfile_path.split('/')[-1]
     # merge mapped files
     #os.system("cat temp/temp1.sam temp/temp2.sam temp/temp3.sam>{outsam}".format(outsam=outsam_path))
     #status = pysam.merge('-@', thread, '-n', '-f', '-u', outsam_path, 'temp/temp1.sam', 'temp/temp2.sam', 'temp/temp3.sam')
-    os.system("samtools merge -@ {thread} -n -f -u {outsam} temp/temp1.sam temp/temp2.sam temp/temp3.sam 2>/dev/null".format(thread=thread,
-                                                                                                                outsam=outsam_path))
-    #tempsam = pysam.view('-@', thread, '-h', 'temp/temp.bam')
-    #with open(outsam_path,"w") as f:
-        #f.write(tempsam)
-
+    os.system("samtools merge -@ {thread} -n -f -u {outsam} temp/temp1.sam temp/temp2.sam temp/temp3.sam 2>/dev/null".format(thread=thread,outsam="temp/mapped_all.sam"))
+    os.system("samtools sort -@ %s -n -O sam -o %s temp/mapped_all.sam"%(thread,outsam_path))
     # delete temp files
+    os.system("rm -rf temp/mapped_all.sam")
     os.system("rm -rf temp/temp1.sam")
     os.system("rm -rf temp/temp2.sam")
     os.system("rm -rf temp/temp3.sam")

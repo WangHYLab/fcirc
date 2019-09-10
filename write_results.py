@@ -7,6 +7,7 @@ def test_uo(lengths,u):
     return scipy.stats.wilcoxon([x-u for x in lengths],zero_method="wilcox").pvalue
 
 
+
 def verity_distribution(reads,inferred_inform):
     breakpointreads = []
     scanreads = []
@@ -19,16 +20,48 @@ def verity_distribution(reads,inferred_inform):
         if read.flag & 4:
             continue
         if read.reference_start < breakpoint and read.reference_end > breakpoint:
-            if read.reference_length > read.query_length + 5:
-                scanreads.append(read)
+            if 4 in read.cigartuples[0][:] or 4 in read.cigartuples[-1][:]:
+                if read.cigartuples[0][1]>3 or read.cigartuples[-1][1]>3:
+                    scanreads.append(read)
             else:
-                breakpointreads.append(read)
-                split_lengths += [breakpoint - read.reference_start, read.reference_end - breakpoint]
-                read_lengths.append(read.query_length)
+                if abs(read.reference_start-breakpoint)>10 and abs(read.reference_end-breakpoint)>10:
+                    breakpointreads.append(read)
+                    split_lengths += [breakpoint - read.reference_start, read.reference_end - breakpoint]
+                    read_lengths.append(read.query_length)
     if breakpointreads != []:
         u_hat = sum(read_lengths)/len(read_lengths)/2
         pvalue = test_uo(split_lengths,u_hat)
     return breakpointreads, scanreads, pvalue
+
+
+def filter_similar(dict_sam):
+    Sam_dict=dict_sam
+    keys=list(Sam_dict.keys())
+    fusions=[i[0] for i in keys]
+    for fusion in set(fusions):
+        if fusions.count(fusion)>=2:
+            Target_key=[key for key in keys if fusion in key ]
+            for m in range(len(Target_key)):
+                for n in range(m+1,len(Target_key)):
+                    if abs(int(Target_key[m][1])-int(Target_key[n][1]))>50 or abs(int(Target_key[m][2])-int(Target_key[n][2]))>50:
+                        continue
+                    else:
+                        if len(Sam_dict[Target_key[m]])>len(Sam_dict[Target_key[n]]):
+                            for i in Sam_dict[Target_key[n]]:
+                                (Sam_dict[Target_key[m]]).append(i)
+                            Sam_dict[Target_key[n]]=''
+                        else:
+                            for i in Sam_dict[Target_key[m]]:
+                                (Sam_dict[Target_key[n]]).append(i)
+                            Sam_dict[Target_key[m]]=''
+    New_dict={}
+    for fusion in keys:
+        if Sam_dict[fusion] is not '':
+            New_dict[fusion]=Sam_dict[fusion]
+    return New_dict
+
+
+
 
 
 def write_fusion(inferred_sam, ifr="temp/inferred_fusion_results.tsv", out="fusion_results.tsv"):
@@ -121,18 +154,20 @@ def write_fcirc(circ_sam, fragmentcount, fr="fusion_results.tsv", out="fcircRNA_
         start = one.reference_start
         end = one.reference_end
         if (fusionname, start, end) not in circ:
-            circ[(fusionname, start, end)] = [one]
+            circ[fusionname, start, end] = [one]
         else:
-            circ[(fusionname, start, end)].append(one)
+            circ[fusionname, start, end].append(one)
+    circ=filter_similar(circ)
     if circ == {}:
         return None
-
     fusion = {}
     with open(fr,'r') as f:
         for line in f:
             if line.startswith('#'):
                 continue
             temp = line.rstrip().split('\t')
+            #print(temp[0])
+            #print(temp)
             fusion[temp[0]] = temp
 
     string = '\t'.join((
@@ -150,11 +185,11 @@ def write_fcirc(circ_sam, fragmentcount, fr="fusion_results.tsv", out="fcircRNA_
 
     fcirccount = 0
     for key in circ.keys():
-        fcirccount += 1
-        circminu = sum([1 for one in circ[key] if one.flag & 16 == 16])
-        circplus = len(circ[key]) - circminu
-
-        string += '\t'.join((
+        if key[0] in fusion.keys():
+            fcirccount += 1
+            circminu = sum([1 for one in circ[key] if one.flag & 16 == 16])
+            circplus = len(circ[key]) - circminu
+            string += '\t'.join((
             "No_" + str(fcirccount),
             key[0],
             str(key[1]),
@@ -166,12 +201,16 @@ def write_fcirc(circ_sam, fragmentcount, fr="fusion_results.tsv", out="fcircRNA_
             ','.join((str(circplus), str(circminu))),
             str((circminu + circplus)/int(fusion[key[0]][-2])/int(fragmentcount))
         )) + '\n'
-
-    with open(out,'w') as f:
-        f.write(string)
+            with open(out,'w') as f:
+                f.write(string)
+        else:
+            continue   # There is a circRNA But not a Fusion_circRNA!
     print("Find {num} kind(s) of fcircRNAs!".format(num=fcirccount))
     return 0
+
+
 
 if __name__ == "__main__":
     #write_fusion(sys.argv[1])
     write_fcirc(sys.argv[1], sys.argv[2])
+

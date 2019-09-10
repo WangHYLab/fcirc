@@ -30,9 +30,9 @@ def checkcigar(read):
             return 0
         else:  # 6S22M44S
             return -1
-    elif read.cigartuples[0][0] == 4 and read.cigartuples[0][1] >= 3:  # 44S31M
+    elif read.cigartuples[0][0] == 4 and read.cigartuples[0][1] >=10 and read.cigartuples[-1][1]>=10:  # 44S31M
         return 0
-    elif read.cigartuples[-1][0] == 4 and read.cigartuples[-1][1] >= 3:  # 31M44S
+    elif read.cigartuples[-1][0] == 4 and read.cigartuples[-1][1]>=10 and read.cigartuples[-1][1]>=10 :  # 31M44S
         return -1
 
 

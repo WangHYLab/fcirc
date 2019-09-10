@@ -3,6 +3,7 @@
 import sys, getopt
 import os
 import time
+import logging
 from filter_reads import drop_mapped_single_tofastq, drop_unmapped_single_tosam, drop_mapped_paired_tofastq, drop_unmapped_paired_tosam, sam_single_tofastq, sam_paired_tofastq, count_reads
 from getpairedreads import getpairedreads
 from reconstruction import reconstruct
@@ -19,7 +20,7 @@ Program:    fcirc (fusion circRNA identifier)
 Version:    1.0.1(written by python3)
 Contact:    HongZhang Xue <xuehzh95@foxmail.com>
 
-Usage:      python fcirc.py [options] -x <ht2-trans-idx> -f <ht2-fusion-idx-dir> {-1 <fastq1> | -1 <fastq1> -2 <fastq2>} 
+Usage:      python fcirc.py [options] -x <ht2-trans-idx> -f <ht2-fusion-idx-dir> {-1 <fastq1> | -1 <fastq1> -2 <fastq2>}
 
 Arguments:
     Required:
@@ -32,24 +33,24 @@ Arguments:
         -2 <fastq2>, --file2 <fastq2>
             fastq file 2 (paired-end pattern:-1 and -2, files should be like -1 xxx_1.fastq -2 xxx_2.fastq)
 
-    Optional:     
+    Optional:
         -o <output_dir>, --output <outout_dir>
             output file directory (default: .)
 
         -t <int>, --thread <int>
-            number of hisat2 alignment and pysam filter threads to launch (default:1)    
+            number of hisat2 alignment and pysam filter threads to launch (default:1)
 
     Others:
         -h, --help
-            help information  
+            help information
         -v, --version
-            version information              
+            version information
     '''
     print(usage_string)
 
 
 def abs_path(path):
-    return os.path.abspath(path.replace('~', os.getenv('HOME')))
+    return os.path.abspath(os.getcwd())
 
 
 def str_current_time():
@@ -76,15 +77,10 @@ def main(argvs):
     fastq2_path = ''
     trans_idx_path = ''
     fusion_idx_dir_path = ''
-  
+
     # temp arguments:
     pattern = ''
-    # genes coordinates file 
-    Software_dir=os.path.split(os.path.abspath(sys.argv[0]))[0]
-    Genes_coord=Software_dir+'/'+'Genes_Coordinate.txt'
-    if not os.path.exists(Genes_coord):
-        print('ERROR in finding Genes_Coordinate.txt,Please check Genes_Coordinate.txt exit in fcirc.py directory')
-        sys.exit(1)
+
 
     for opt, arg in opts:
         if opt in ('-h','--help'):
@@ -148,6 +144,12 @@ def main(argvs):
     except:
         print("temp dir exists, it will be rewrited.")
 
+    Software_dir=os.path.split(os.path.abspath(sys.argv[0]))[0]
+    Genes_coord=Software_dir+'/'+'Genes_Coordinate.txt'
+    if not os.path.exists(Genes_coord):
+        print('ERROR in finding Genes_Coordinate.txt,Please check Genes_Coordinate.txt exit in fcirc.py directory')
+        sys.exit(1)
+
     # single-end pattern
     if pattern == "single-end":
         if fastq1_path == '':
@@ -177,7 +179,7 @@ def main(argvs):
         unmapped_fastq_path = drop_mapped_single_tofastq("temp/trans_" + projectname + ".sam")
 
         hisat2_fusionU_command = '''hisat2 -p {thread} \
-            --mp 6,2 \
+            --mp 7,3 \
             --rdg 5,2 \
             --rfg 5,2 \
             --sp 1,1 \
@@ -196,7 +198,7 @@ def main(argvs):
         print("[{now}] Finish mapping reads to fusion references U!".format(now=str_current_time()))
 
         hisat2_fusionV_command = '''hisat2 -p {thread} \
-            --mp 6,2 \
+            --mp 7,3 \
             --rdg 5,2 \
             --rfg 5,2 \
             --sp 1,1 \
@@ -221,7 +223,7 @@ def main(argvs):
         mapped_filtered_samU_path, mapped_filtered_samV_path = getpairedreads(mapped_samU_path, mapped_samV_path, pattern, fusion_idx_dir_path)
         print("[{now}] Finish filtering fusion-related reads in fusion references U and V!".format(now=str_current_time()))
 
-        return_state = reconstruct(mapped_filtered_samU_path, mapped_filtered_samV_path, fusion_idx_dir_path)
+        return_state = reconstruct(mapped_filtered_samU_path, mapped_filtered_samV_path,Genes_coordinates, fusion_idx_dir_path)
         if return_state != 0:
             print("[{now}] No fusion-related read is detected!".format(now=str_current_time()))
             exit(return_state)
@@ -363,7 +365,7 @@ def main(argvs):
         mapped_filtered_samU_path, mapped_filtered_samV_path = getpairedreads(mapped_samU_path, mapped_samV_path, pattern, fusion_idx_dir_path)
         print("[{now}] Finish filtering fusion-related reads in fusion references U and V!".format(now=str_current_time()))
 
-        return_state= reconstruct(mapped_filtered_samU_path, mapped_filtered_samV_path, fusion_idx_dir_path)
+        return_state= reconstruct(mapped_filtered_samU_path, mapped_filtered_samV_path,Genes_coordinates,fusion_idx_dir_path)
         if return_state != 0:
             print("[{now}] No fusion-related read is detected!".format(now=str_current_time()))
             exit(return_state)
@@ -426,5 +428,6 @@ def main(argvs):
 
 
 if __name__ == "__main__":
-    print("[{now}] Start running # {command}".format(now=str_current_time(), command=' '.join(sys.argv)))
+    logging.basicConfig(level=logging.INFO,format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
+    logging.info("[{now}] Start running # {command}".format(now=str_current_time(), command=' '.join(sys.argv)))
     main(sys.argv[1:])
