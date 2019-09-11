@@ -28,6 +28,8 @@ Arguments:
             transcription index filename prefix (minus trailing .X.ht2)
         -f <ht2-fusion-idx-dir>, --fusion_idx_dir <ht2-fusion-idx-dir>
             fusion index directory (contains fusiongenes_ref_U and fusiongenes_ref_V)
+        -c <fusion-genes-coordinates> --fusion_genes_coord
+            fusion genes coordinates file(defalut: fusion_genes_coordinate.txt)
         -1 <fastq1>, --file1 <fastq1>
             fastq file 1 (single-end pattern:only -1)
         -2 <fastq2>, --file2 <fastq2>
@@ -50,7 +52,7 @@ Arguments:
 
 
 def abs_path(path):
-    return os.path.abspath(os.getcwd())
+    return os.path.abspath(path.replace('~', os.getenv('HOME')))
 
 
 def str_current_time():
@@ -58,12 +60,13 @@ def str_current_time():
 
 
 def main(argvs):
+    logging.basicConfig(level=logging.INFO,format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
     if len(argvs) == 0:
         usage()
         sys.exit()
 
     try:
-        opts, args = getopt.getopt(argvs, "hv1:2:x:f:o:t:", ["help", "version", "file1", "file2" ,"trans_idx", "fusion_idx_dir", "output", "thread"])
+        opts, args = getopt.getopt(argvs, "hv1:2:x:f:c:o:t:", ["help", "version", "file1", "file2" ,"trans_idx", "fusion_idx_dir","fusion_genes_coord", "output", "thread"])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(2)
@@ -77,9 +80,11 @@ def main(argvs):
     fastq2_path = ''
     trans_idx_path = ''
     fusion_idx_dir_path = ''
-
-    # temp arguments:
-    pattern = ''
+    software_dir=os.path.split(os.path.abspath(sys.argv[0]))[0]
+    fusion_genes_coord=software_dir+'/'+'fusion_genes_coordinate.txt'
+    #if not os.path.exists(Genes_coord):
+        #print('ERROR in finding Genes_Coordinate.txt,Please check Genes_Coordinate.txt exit in fcirc.py directory')
+        #sys.exit(1)
 
 
     for opt, arg in opts:
@@ -118,11 +123,13 @@ def main(argvs):
                 print("Error:Fail to locate hisat2 fusion index prefix,please check {path}".format(path=abs_arg))
                 sys.exit(1)
 
-
-
-
-
-
+        if opt in ('-c','--fusion_genes_coord'):
+            abs_arg=abs_path(arg)
+            if os.path.isfile(abs_arg):
+                fusion_genes_coord=abs_arg
+            else:
+                print('Error to locate fusion genes coordinate file,Please check{path}'.format(path=abs_arg))
+                sys.exit(1)
 
 
         if opt in ('-o','--output'):
@@ -135,7 +142,6 @@ def main(argvs):
                     sys.exit(1)
             output_path = abs_arg.rstrip('/')
             os.chdir(output_path)
-
         if opt in ('-t','--thread'):
             thread = arg
 
@@ -143,12 +149,6 @@ def main(argvs):
         os.mkdir("temp")
     except:
         print("temp dir exists, it will be rewrited.")
-
-    Software_dir=os.path.split(os.path.abspath(sys.argv[0]))[0]
-    Genes_coord=Software_dir+'/'+'Genes_Coordinate.txt'
-    if not os.path.exists(Genes_coord):
-        print('ERROR in finding Genes_Coordinate.txt,Please check Genes_Coordinate.txt exit in fcirc.py directory')
-        sys.exit(1)
 
     # single-end pattern
     if pattern == "single-end":
@@ -179,7 +179,7 @@ def main(argvs):
         unmapped_fastq_path = drop_mapped_single_tofastq("temp/trans_" + projectname + ".sam")
 
         hisat2_fusionU_command = '''hisat2 -p {thread} \
-            --mp 7,3 \
+            --mp 6,2 \
             --rdg 5,2 \
             --rfg 5,2 \
             --sp 1,1 \
@@ -198,7 +198,7 @@ def main(argvs):
         print("[{now}] Finish mapping reads to fusion references U!".format(now=str_current_time()))
 
         hisat2_fusionV_command = '''hisat2 -p {thread} \
-            --mp 7,3 \
+            --mp 6,2 \
             --rdg 5,2 \
             --rfg 5,2 \
             --sp 1,1 \
@@ -223,7 +223,7 @@ def main(argvs):
         mapped_filtered_samU_path, mapped_filtered_samV_path = getpairedreads(mapped_samU_path, mapped_samV_path, pattern, fusion_idx_dir_path)
         print("[{now}] Finish filtering fusion-related reads in fusion references U and V!".format(now=str_current_time()))
 
-        return_state = reconstruct(mapped_filtered_samU_path, mapped_filtered_samV_path,Genes_coordinates, fusion_idx_dir_path)
+        return_state = reconstruct(mapped_filtered_samU_path, mapped_filtered_samV_path,fusion_genes_coord, fusion_idx_dir_path)
         if return_state != 0:
             print("[{now}] No fusion-related read is detected!".format(now=str_current_time()))
             exit(return_state)
@@ -272,7 +272,6 @@ def main(argvs):
         return_state = os.system(hisat2_fusion_circ_command)
         if return_state != 0:
             exit(return_state)
-
         # count input reads
         readcount = count_reads("temp/trans_" + projectname + ".sam")
         return_state  = write_fcirc("temp/inferred_fusion_circ.sam", readcount)
@@ -365,7 +364,7 @@ def main(argvs):
         mapped_filtered_samU_path, mapped_filtered_samV_path = getpairedreads(mapped_samU_path, mapped_samV_path, pattern, fusion_idx_dir_path)
         print("[{now}] Finish filtering fusion-related reads in fusion references U and V!".format(now=str_current_time()))
 
-        return_state= reconstruct(mapped_filtered_samU_path, mapped_filtered_samV_path,Genes_coordinates,fusion_idx_dir_path)
+        return_state= reconstruct(mapped_filtered_samU_path, mapped_filtered_samV_path,fusion_genes_coord,fusion_idx_dir_path)
         if return_state != 0:
             print("[{now}] No fusion-related read is detected!".format(now=str_current_time()))
             exit(return_state)
