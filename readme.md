@@ -1,5 +1,5 @@
 # Fcirc
-*Fcirc* is a pipeline for transcripts and circRNAs of known fusions exploration. The sourcse of known fusion genes is from the multiple databases [COSMIC,ChimerDB,TicDB,FARE-CAFE and FusionCancer]and gene-pairs user added. It cost less time to find fusion-related(fusion forward splicing and back-splicing transripts) reads with higher sensitity than novel detecting fusion methods. The steps of *fcirc* are as folowing:
+*Fcirc is a pipeline for transcripts and circRNAs of known fusions exploration. Known fusion genes are from the multiple databases (COSMIC,ChimerDB,TicDB,FARE-CAFE and FusionCancer) or defined by users. It costs less time to find fusion-related (fusion forward splicing and back-splicing transcripts) reads with higher sensitivity than novel detecting fusion methods,The steps of fcirc are as following:
 
 ![Fcirc pipeline](https://github.com/WangHYLab/supplementary_files/blob/master/Images/Figure_1.png "fcirc pipeline")
 
@@ -32,7 +32,7 @@ Make sure that **hisat2** and **samtools** are add to envionment variables so th
 #### Preparing genome resource and known fusion-pairs
 * Genome resource is hisat2 index, which can be download from [hisat2 websites](http://ccb.jhu.edu/software/hisat2/index.shtml). For human fusion transcript detection, it's recommanded to use *genome_tran* of GRCh38 or GRCh37. It also can be finished with FASTA sequence file and annotation GTF file by hisat2's script.
 
-* Known fusion-pairs can be downloaded from Github page(https://cancer.sanger.ac.uk/cosmic/fusion) and bipartite fusions index can be build by hisat2-build as following:
+* Known fusion-pairs can be downloaded from Github page(https://github.com/WangHYLab/fcirc) and bipartite fusions index can be build by hisat2-build as following:
 ```
 python3 downloadfusion.py known_fusion_dir
 cd known_fusion_dir
@@ -60,6 +60,8 @@ Arguments can be used as following:
             transcription index filename prefix (minus trailing .X.ht2)
         -f <ht2-fusion-idx-dir>, --fusion_idx_dir <ht2-fusion-idx-dir>
             fusion index directory (contains fusiongenes_ref_U and fusiongenes_ref_V)
+        -c <fusion-genes-coordinates> --fusion_genes_coord
+            fusion genes coordinates file(defalut: fusion_genes_coordinate.txt)    
         -1 <fastq1>, --file1 <fastq1>
             fastq file 1 (single-end pattern:only -1)
         -2 <fastq2>, --file2 <fastq2>
