@@ -32,7 +32,7 @@ Make sure that **hisat2** and **samtools** are add to envionment variables so th
 #### Preparing genome resource and known fusion-pairs
 * Genome resource is hisat2 index, which can be download from [hisat2 websites](http://ccb.jhu.edu/software/hisat2/index.shtml). For human fusion transcript detection, it's recommanded to use *genome_tran* of GRCh38 or GRCh37. It also can be finished with FASTA sequence file and annotation GTF file by hisat2's script.
 
-* Known fusion-pairs can be downloaded from Github page(https://github.com/WangHYLab/fcirc) and bipartite fusions index can be build by hisat2-build as following:
+* Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be build by hisat2-build as following:
 ```
 python3 downloadfusion.py known_fusion_dir
 cd known_fusion_dir
@@ -51,7 +51,7 @@ The input data shall be single-end or paired -end FASTQ files which can be raw d
 #### Command line options
 *Fcirc* can be run with a simple command line.
 ```
-python fcric.py [options] -x <ht2-trans-idx> -f <ht2-fusion-idx-dir> {-1 <fastq1> | -1 <fastq1> -2 <fastq2>} 
+python fcric.py [options] -x <ht2-trans-idx> -f <ht2-fusion-idx-dir> -c <fusion-genes-coordinates> {-1 <fastq1> | -1 <fastq1> -2 <fastq2>} 
 ```
 Arguments can be used as following:
 ```
