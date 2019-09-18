@@ -36,7 +36,7 @@ Make sure that **hisat2** and **samtools** are added to environment variables so
 
 ```
 hisat2-build fusiongenes_ref_U.fa fusiongenes_ref_U
-hiast2-build fusiongenes_ref_V.fa fusiongenes_ref_V
+hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 ```
 
 * (optional) add gene pairs of fusions you are interested
