@@ -1,5 +1,5 @@
 # Fcirc
-#Fcirc is a pipeline for transcripts and circRNAs of known fusions exploration. Known fusion genes are from the multiple databases (COSMIC,ChimerDB,TicDB,FARE-CAFE and FusionCancer) or defined by users. It costs less time to find fusion-related (fusion forward splicing and back-splicing transcripts) reads with higher sensitivity than novel detecting fusion methods,The steps of fcirc are as following:
+Fcirc is a pipeline for transcripts and circRNAs of known fusions exploration. Known fusion genes are from the multiple databases (COSMIC,ChimerDB,TicDB,FARE-CAFE and FusionCancer) or defined by users. It costs less time to find fusion-related (fusion forward splicing and back-splicing transcripts) reads with higher sensitivity than novel detecting fusion methods. The steps of fcirc are as following:
 
 ![Fcirc pipeline](https://github.com/WangHYLab/supplementary_files/blob/master/Images/Figure_1.png "fcirc pipeline")
 
