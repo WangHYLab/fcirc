@@ -4,7 +4,7 @@
 ![Fcirc pipeline](https://github.com/WangHYLab/supplementary_files/blob/master/Images/Figure_1.png "fcirc pipeline")
 
 ## Installation
-*Fcirc* is written by **python3**, requiring [hisat2](http://ccb.jhu.edu/software/hisat2/index.shtml) for aligning reads, [samtools](http://www.htslib.org/download/) for selecting reads and python packages numpy,scipy,pysam.
+*Fcirc* is written in **python3**, requiring [hisat2](http://ccb.jhu.edu/software/hisat2/index.shtml) for aligning reads, [samtools](http://www.htslib.org/download/) for selecting reads and python packages numpy,scipy,pysam.
 #### Hardware requirements
 For running fcirc it is needed a computer with:
 * minimum 8 GB of RAM(aligning to hunman genome reference)
@@ -27,25 +27,23 @@ pip install numpy
 pip install scipy
 pip install pysam
 ```
-Make sure that **hisat2** and **samtools** are add to envionment variables so that *fcirc* can invoke them.
+Make sure that **hisat2** and **samtools** are added to environment variables so that fcirc can invoke them.
 
 #### Preparing genome resource and known fusion-pairs
-* Genome resource is hisat2 index, which can be download from [hisat2 websites](http://ccb.jhu.edu/software/hisat2/index.shtml). For human fusion transcript detection, it's recommanded to use *genome_tran* of GRCh38 or GRCh37. It also can be finished with FASTA sequence file and annotation GTF file by hisat2's script.
+* Genome resource is hisat2 index, which can be downloaded from hisat2 websites. For human fusion transcript detection, it's recommended to use genome_tran of GRCh38 or GRCh37. It also can be finished with FASTA sequence file and annotation GTF file by hisat2's script.
 
-* Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be build by hisat2-build as following:
+* Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be built by hisat2-build as following:
 
 ```
 hisat2-build fusiongenes_ref_U.fa fusiongenes_ref_U
 hiast2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 ```
 
-* (optional) add gene_pairs you interested
-```
-python3 addfusion.py known_fusion_dir fusion_list.txt fusion_seq.fa 
-```
+* (optional) add gene pairs of fusions you are interested
+
 ## Usage
 #### Input data
-The input data shall be single-end or paired -end FASTQ files which can be raw data as well as trimmed data.
+The input data are single-end or paired-end RNA-Seq in FASTQ format. Either raw data or clean data is acceptable.
 
 #### Command line options
 *Fcirc* can be run with a simple command line.
@@ -91,8 +89,8 @@ PML-RARA        PML     RARA    1183                    178                     
 ...
 ...
 ```
-The columns' meaning is as following:  
-**P-Value** - Under the assumption of fusion inferred by *fcirc*, the p value of length cut by breakpoint distribution. If it is smaller than 0.05, the inferred fusion is not correct.
+The column's meaning is as following:  
+**P-Value** - - Under the assumption of fusion inferred by fcirc, the p value of length cut by breakpoint distribution. If it is smaller than 0.05, the inferred fusion is not correct.
 
 
 **2. FcircRNA information** is stored in file **'fcircRNA_results.tsv'** as the format:
@@ -105,15 +103,15 @@ No_4        	PML-RARA	493	                1298	        1183	                2394
 ...
 ...
 ```
-The columns' meaning is as following:  
+The column's meaning is as following:  
 **FCI** - the normalized expression of f-circRNA(reads count/sequencing depth/fusion gene length). 
 
 ## Quick start
-SRR3239817 from NCBI, a NB4 sample（test.fastq has been reduced in test_data） sequenced with single-end, 75bp can be test here.
+SRR3239817 from NCBI SRA database, a NB4 sample（test.fastq has been reduced in test_data） sequenced with single-end, 75bp can be tested here.
 ```
 python fcirc.py -t 4 -o fcirc_out -x grch37_tran/genome_tran -f known_fusion_dir -1 test_data/test.fastq
 ```
-It may cost about half an hour,if it runs succcessfully, some log information will be printed as following:
+It costs about half an hour. If it runs successfully, some log information will be printed as following:
 ```
 [2018-06-02 16:06:59] Start running # python fcirc.py -t 4 -o fcirc_out -x grch37_tran/genome_tran -f known_fusion_dir -1 SRR3239817.fastq
 [2018-06-02 16:13:07] Finish mapping reads to transcription!
