@@ -32,9 +32,10 @@ Make sure that **hisat2** and **samtools** are added to environment variables so
 #### Preparing genome resource and known fusion-pairs
 * Genome resource is hisat2 index, which can be downloaded from hisat2 websites. For human fusion transcript detection, it's recommended to use genome_tran of GRCh38 or GRCh37. It also can be finished with FASTA sequence file and annotation GTF file by hisat2's script.
 
-* Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be built by hisat2-build as following:
+* Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be built by hisat2-build in reference_fusion_info directory as following:
 
 ```
+cd reference_fusion_info 
 hisat2-build fusiongenes_ref_U.fa fusiongenes_ref_U
 hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 ```
