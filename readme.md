@@ -35,7 +35,7 @@ Make sure that **hisat2** and **samtools** are added to environment variables so
 * Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be built by hisat2-build in reference_fusion_info directory as following:
 
 ```
-cd reference_fusion_info 
+cd reference_fusion_info
 hisat2-build fusiongenes_ref_U.fa fusiongenes_ref_U
 hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 ```
