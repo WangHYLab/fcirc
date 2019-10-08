@@ -18,7 +18,7 @@ def usage():
     usage_string = '''
 Program:    fcirc (fusion circRNA identifier)
 Version:    1.0.1(written by python3)
-Contact:    HongZhang Xue <xuehzh95@foxmail.com>
+Contact:    HongZhang Xue <xuehzh95@foxmail.com> caizhaoqing<2228908525@qq.com>
 
 Usage:      python fcirc.py [options] -x <ht2-trans-idx> -f <ht2-fusion-idx-dir> {-1 <fastq1> | -1 <fastq1> -2 <fastq2>}
 
