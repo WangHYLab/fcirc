@@ -1,12 +1,12 @@
 # Fcirc
-**Fcirc** is a pipeline for transcripts and circRNAs of known fusions exploration. Known fusion genes are from the multiple databases (COSMIC,ChimerDB,TicDB,FARE-CAFE and FusionCancer) or defined by users. It costs less time to find fusion-related (fusion forward splicing and back-splicing transcripts) reads with higher sensitivity than novel detecting fusion methods. The steps of fcirc are as following:
+**Fcirc** is a pipeline for exploring transcripts and circRNAs of known fusions. The sources of known fusion genes are from the multiple databases (COSMIC,ChimerDB,TicDB,FARE-CAFE and FusionCancer) or user-added gene-pairs. It costs less time to find fusion-related (fusion forward splicing and back-splicing transcripts) reads with higher sensitivity than novel detecting fusion methods. The steps of **Fcirc** are as follows:
 
 ![Fcirc pipeline](https://github.com/WangHYLab/supplementary_files/blob/master/Images/Figure_1.png "fcirc pipeline")
 
 ## Installation
 *Fcirc* is written in **python3**, requiring [hisat2](http://ccb.jhu.edu/software/hisat2/index.shtml) for aligning reads, [samtools](http://www.htslib.org/download/) for selecting reads and python packages numpy,scipy,pysam.
 #### Hardware requirements
-For running fcirc it is needed a computer with:
+For running fcirc a computer with with the following is needed:
 * minimum 8 GB of RAM(aligning to hunman genome reference)
 * 1 CPU (minimum)
 
@@ -17,7 +17,7 @@ For running fcirc it is needed a computer with:
 #### Installing required dependencies
 * hisat2 [http://ccb.jhu.edu/software/hisat2/index.shtml](http://ccb.jhu.edu/software/hisat2/index.shtml)
 * samtools [http://www.htslib.org/download/](http://www.htslib.org/download/)
-* some python packages which be insatalled by pip as following:
+* some python packages that can be insatalled by pip are as follows:
 ```
 pip install -r requirements.txt
 ```
@@ -27,12 +27,12 @@ pip install numpy
 pip install scipy
 pip install pysam
 ```
-Make sure that **hisat2** and **samtools** are added to environment variables so that fcirc can invoke them.
+Make sure that **hisat2** and **samtools** are added to environment variables so that **Fcirc** can invoke them.
 
 #### Preparing genome resource and known fusion-pairs
-* Genome resource is hisat2 index, which can be downloaded from hisat2 websites. For human fusion transcript detection, it's recommended to use genome_tran of GRCh38 or GRCh37. It also can be finished with FASTA sequence file and annotation GTF file by hisat2's script.
+* The genome resource is hisat2 index, which can be downloaded from hisat2 websites[http://ccb.jhu.edu/software/hisat2/index.shtml]. For human fusion transcript detection, it's recommended to use genome_tran of GRCh38 or GRCh37. It can also be finished with FASTA sequence file and annotation GTF file by hisat2 script.
 
-* Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be built by hisat2-build in reference_fusion_info directory as following:
+* Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be built by hisat2-build in reference_fusion_info directory as follows:
 
 ```
 cd reference_fusion_info
@@ -40,14 +40,14 @@ hisat2-build fusiongenes_ref_U.fa fusiongenes_ref_U
 hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 ```
 
-* (optional) add gene pairs of fusions you are interested
+* (optional) add gene pairs of fusions you interested
 
 ## Usage
 #### Input data
-The input data are single-end or paired-end RNA-Seq in FASTQ format. Either raw data or clean data is acceptable.
+The input data shall be single-end or paired-end RNA-Seq in FASTQ format,which can be raw data or trimmed data.
 
 #### Command line options
-*Fcirc* can be run with a simple command line.
+**Fcirc** can be run with a simple command line.
 ```
 python fcric.py [options] -x <ht2-trans-idx> -f <ht2-fusion-idx-dir> -c <fusion-genes-coordinates> {-1 <fastq1> | -1 <fastq1> -2 <fastq2>} 
 ```
@@ -86,18 +86,18 @@ The output includes
 **1. Fusion information** is stored in file **'fusion_results.tsv'** as the format:
 ```
 #Fusion Name    5'Gene  3'Gene  5'Gene BreakPoint Pos   3'Gene BreakPoint Pos   5'Gene Breakpoint Seq   3'Gene Breakpoint Seq   5'and 3'Common Breakpoint Seq   BreakpointReads Count   BreakpointReads         BreakpointStrand Count(+,-)     ScanningReads Count     ScanningReads           ScanningStrand Count(+,-)       Fusion Seq Length   P-Value
-PML-RARA        PML     RARA    1183                    178                      CAGGGGAAAG              CCATTGAGAC             .                               199                     SRR3239817.48859220...  6,193                           1                       SRR3239817.49196217     1,0                             2394                0.41116390271
+PML-RARA        PML     RARA    28736                  39134                    CAGGGGAAAG              AGCCATTGAG             .                               171                    SRR3239817.18109433...  2,169                           25                       SRR3239817.15285364...     5,2                             38066     0.00438668413546
 ...
 ...
 ```
 The column's meaning is as following:  
-**P-Value** - - Under the assumption of fusion inferred by fcirc, the p value of length cut by breakpoint distribution. If it is smaller than 0.05, the inferred fusion is not correct.
+**P-Value** - - Under the assumption of fusion inferred by **Fcirc**, the p value of length cut by breakpoint distribution. If it is smaller than 0.05, the inferred fusion is not correct.
 
 
 **2. FcircRNA information** is stored in file **'fcircRNA_results.tsv'** as the format:
 ```
 #FcircRNA_NO	Fusion Name	Backsplice start	Backsplice end	FusionBreakPoint Pos	FusionSeq Length	Support FcircRNA Reads Count	Support FcircRNA Reads	                FcircRNA Strand Count(+,-)	FCI
-No_1        	PML-RARA	1014            	1635	        1183	                2394	            	1	                            SRR3239817.17199266	                    0,1	                        8.407767446938172e-12
+No_1        	PML-RARA	28736            	39134	        1183	                2394	            	1	                            SRR3239817.17199266	                    0,1	                        8.407767446938172e-12
 No_2	        PML-RARA	155	                1301        	1183	                2394	            	2	                            SRR3239817.2305597,SRR3239817.17076681  0,2	                        1.6815534893876344e-11
 No_3        	PML-RARA	198	                1725	        1183	                2394	            	2	                            SRR3239817.4206524,SRR3239817.46897792	0,2	                        1.6815534893876344e-11
 No_4        	PML-RARA	493	                1298	        1183	                2394            	1	                            SRR3239817.1361558                  	0,1	                        8.407767446938172e-12
