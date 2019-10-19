@@ -119,12 +119,10 @@ It costs about half an hour. If it runs successfully, some log information will 
 [2018-06-02 16:16:19] Finish mapping reads to fusion references U!
 [2018-06-02 16:17:43] Finish mapping reads to fusion references V!
 [2018-06-02 16:18:45] Finish dropping unmapped read in fusion references U and V!
-Find 293 Reads in U! 293 Reads in V!
+Find 274 Reads in U! 274 Reads in V!
 [2018-06-02 16:18:47] Finish filtering fusion-related reads in fusion references U and V!
-PML-RARA 293
-Pos: 1183 178
 [2018-06-02 16:18:49] Finish mapping reads to inferred fusion references!
-Find 35 kind(s) of fcircRNAs!
+Find 22 kind(s) of fcircRNAs!
 [2018-06-02 16:18:49] Finish all!See the result in 'fcircRNA_results.tsv'!
 ```
 
