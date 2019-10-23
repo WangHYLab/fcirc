@@ -1,5 +1,5 @@
 # Fcirc
-**Fcirc** is a pipeline for exploring transcripts and circRNAs of known fusions. The sources of known fusion genes are from the multiple databases (COSMIC,ChimerDB,TicDB,FARE-CAFE and FusionCancer) or user-added gene-pairs. It costs less time to find fusion-related (fusion forward splicing and back-splicing transcripts) reads with higher sensitivity than novel detecting fusion methods. The steps of **Fcirc** are as follows:
+**Fcirc** is a pipeline for exploring transcripts and circRNAs of known fusions. The sources of known fusion genes are from the multiple databases (COSMIC,ChimerDB, TicDB, FARE-CAFE and FusionCancer) or user-added gene-pairs. It costs less time to find fusion-related (fusion forward splicing and back-splicing transcripts) reads with higher sensitivity than novel detecting fusion methods. The steps of **Fcirc** are as follows:
 
 ![Fcirc pipeline](https://github.com/WangHYLab/supplementary_files/blob/master/Images/Figure_1.png "fcirc pipeline")
 
@@ -130,7 +130,7 @@ Description of each column's values:
 **FCI** - The normalized expression of f-circRNA(reads count/sequencing depth/fusion gene length). 
 
 ## Quick start
-SRR3239817 from NCBI SRA database, a NB4 sample（test.fastq has been reduced in test_data） sequenced with single-end, 75bp can be tested here.
+SRR3239817 from NCBI SRA database, a NB4 sample（test.fastq has been reduced in test_data） sequenced with single-end, 75 bp can be tested here.
 ```
 python fcirc.py -t 4 -o fcirc_out -x grch37_tran/genome_tran -f known_fusion_dir -1 test_data/test.fastq
 ```
