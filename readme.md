@@ -4,9 +4,9 @@
 ![Fcirc pipeline](https://github.com/WangHYLab/supplementary_files/blob/master/Images/Figure_1.png "fcirc pipeline")
 
 ## Installation
-*Fcirc* is written in **python3**, requiring [hisat2](http://ccb.jhu.edu/software/hisat2/index.shtml) for aligning reads, [samtools](http://www.htslib.org/download/) for selecting reads and python packages numpy,scipy,pysam.
+*Fcirc* is written in **python3**, requiring [HISAT2](http://ccb.jhu.edu/software/hisat2/index.shtml) for aligning reads, [samtools](http://www.htslib.org/download/) for selecting reads and python packages numpy,scipy,pysam.
 #### Hardware requirements
-For running fcirc a computer with with the following is needed:
+For running fcirc a computer with the following is needed:
 * minimum 8 GB of RAM(aligning to hunman genome reference)
 * 1 CPU (minimum)
 
@@ -17,7 +17,7 @@ For running fcirc a computer with with the following is needed:
 #### Installing required dependencies
 * hisat2 [http://ccb.jhu.edu/software/hisat2/index.shtml](http://ccb.jhu.edu/software/hisat2/index.shtml)
 * samtools [http://www.htslib.org/download/](http://www.htslib.org/download/)
-* some python packages that can be insatalled by pip are as follows:
+* some python packages that can be installed by pip are as follows:
 ```
 pip install -r requirements.txt
 ```
@@ -44,7 +44,7 @@ hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 
 ## Usage
 #### Input data
-The input data shall be single-end or paired-end RNA-Seq in FASTQ format,which can be raw data or trimmed data.
+The input data shall be single-end or paired-end RNA-Seq in FASTQ format, which can be raw data or trimmed data.
 
 #### Command line options
 **Fcirc** can be run with a simple command line.
@@ -90,7 +90,20 @@ PML-RARA        PML     RARA    28736                  39134                    
 ...
 ...
 ```
-The column's meaning is as following:  
+Description of each column's values:
+**#Fusion Name** - -The name of the fusion transcipt,from which fusion genes can be infered.
+**5'Gene** - -The gene located at the 5' end of the fusion transcript.
+**3'Gene** - - The gene located at the 3' end of the fusion transcript.
+**5'Gene BreakPoint Pos** - - The position of the break point of the 5' end of the fusion transcript
+**3'Gene BreakPoint Pos** - - The position of the break point of the 3' end of the fusion transcript
+**5'Gene Breakpoint Seq** - - Sequence of the 5' end of the gene in the fusion breakpoint attachment.
+**3'Gene Breakpoint Seq** - - Sequence of the 3' end of the gene in the fusion breakpoint attachment
+**5'and 3'Common Breakpoint Seq** - - The same sequence at the breakpoint of the 3' end of the transcript and the 5' end of the gene
+**BreakpointReads Count** - -The number of read spanning the fusion breakpoint.
+**BreakpointReads** - -The reads spanning the fusion breakpoint
+**BreakpointStrand Count(+,-)** - - The number of reads located in forward Strand and reverse strand respectively
+**ScanningReads Count(+,-)** - - The number of pair of reads are located on both sides of the breakpoint.
+**Fusion Seq Length** - - The length of the fusion transcripts sequence.
 **P-Value** - - Under the assumption of fusion inferred by **Fcirc**, the p value of length cut by breakpoint distribution. If it is smaller than 0.05, the inferred fusion is not correct.
 
 
@@ -104,8 +117,17 @@ No_4        	PML-RARA	493	                1298	        1183	                2394
 ...
 ...
 ```
-The column's meaning is as following:  
-**FCI** - the normalized expression of f-circRNA(reads count/sequencing depth/fusion gene length). 
+Description of each column's values:
+**#FcircRNA_NO** - The id of fusion circRNA.
+**Fusion Name** - The fusion gene name constituting the fusion circular RNA
+**Backsplice start** - The starting position of back-spliced.
+**Backsplice end** - The end position of back-spliced..
+**FusionBreakPoint Pos** - The position of fusion breakpoint. 
+**FusionSeq Length** - The length of fusion sequence.
+**Support FcircRNA Reads Count** - The number of reads Supporting the f-circRNA.
+**Support FcircRNA Reads** - The reads Supporting the f-circRNA.
+**FcircRNA Strand Count(+,-)** - The number of reads supporting f-circRNA on positive and negative strand.
+**FCI** - The normalized expression of f-circRNA(reads count/sequencing depth/fusion gene length). 
 
 ## Quick start
 SRR3239817 from NCBI SRA database, a NB4 sample（test.fastq has been reduced in test_data） sequenced with single-end, 75bp can be tested here.
