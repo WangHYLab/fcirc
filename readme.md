@@ -110,10 +110,9 @@ The description of each column:
 **2. FcircRNA information** is stored in a file **'fcircRNA_results.tsv'** as the following format:
 ```
 #FcircRNA_NO	Fusion Name	Backsplice start	Backsplice end	FusionBreakPoint Pos	FusionSeq Length	Support FcircRNA Reads Count	Support FcircRNA Reads	                FcircRNA Strand Count(+,-)	FCI
-No_1        	PML-RARA	28736            	39134	        1183	                2394	            	1	                            SRR3239817.17199266	                    0,1	                        8.407767446938172e-12
-No_2	        PML-RARA	155	                1301        	1183	                2394	            	2	                            SRR3239817.2305597,SRR3239817.17076681  0,2	                        1.6815534893876344e-11
-No_3        	PML-RARA	198	                1725	        1183	                2394	            	2	                            SRR3239817.4206524,SRR3239817.46897792	0,2	                        1.6815534893876344e-11
-No_4        	PML-RARA	493	                1298	        1183	                2394            	1	                            SRR3239817.1361558                  	0,1	                        8.407767446938172e-12
+No_1    PML-RARA	3400	32843	28736	38066	2	SRR3239817.46897792,SRR3239817.4206524	0,2	0.000
+No_2	PML-RARA	28596	32347	28736	38066	1	SRR3239817.23906640	0,1	0.000
+No_3	PML-RARA	3357	28856	28736	38066	2	SRR3239817.17076681,SRR3239817.2305597	0,2	0.000
 ...
 ...
 ```
@@ -127,7 +126,7 @@ The description of each column:
 </br>**Support FcircRNA Reads Count** - - The number of reads supporting the f-circRNA
 </br>**Support FcircRNA Reads** - - The reads supporting the f-circRNA
 </br>**FcircRNA Strand Count(+,-)** - - The number of reads supporting f-circRNA on positive and negative strand
-</br>**FCI** - - The normalized expression of f-circRNA (FCI=(reads count * 10^9)/(sequencing depth * fusion gene length))
+</br>**FCI** - - The normalized expression of f-circRNA (FCI=(reads count * 10^6)/(sequencing depth * fusion gene length))
 
 ## Quick start
 You can start this pipeline using a testing RNA-Seq data, whose reads are partially from a RNA-Seq dataset SRR3239817 (NCBI SRA database), an acute leukaemia cell line NB4.
