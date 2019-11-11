@@ -135,15 +135,15 @@ python fcirc.py -t 4 -o fcirc_out -x transcriptome_HISAT2_index_path -f known_fu
 ```
 It costs few minutes. If it runs successfully, some log information will be printed as following:
 ```
-[2018-06-02 16:06:59] Start running # python fcirc.py -t 4 -o fcirc_out -x transcriptome_HISAT2_index_path -f known_fusion_directory_path -1 test_fastq_path
-[2018-06-02 16:13:07] Finish mapping reads to transcription!
-[2018-06-02 16:16:19] Finish mapping reads to fusion references U!
-[2018-06-02 16:17:43] Finish mapping reads to fusion references V!
-[2018-06-02 16:18:45] Finish dropping unmapped read in fusion references U and V!
+2019-11-11 22:37:46,453 fcirc.py[line:426][2019-11-11 22:37:46] Start running # fcirc.py -t 4 -o fcirc_out0 -x transcriptome_HISAT2_index_path -f known_fusion_directory_path -1 test_fastq_path
+[2019-11-11 22:37:51] Finish mapping reads to transcription!
+[2019-11-11 22:37:51] Finish mapping reads to fusion references U!
+[2019-11-11 22:37:52] Finish mapping reads to fusion references V!
+[2019-11-11 22:37:52] Finish dropping unmapped read in fusion references U and V!
 Find 274 Reads in U! 274 Reads in V!
-[2018-06-02 16:18:47] Finish filtering fusion-related reads in fusion references U and V!
-[2018-06-02 16:18:49] Finish mapping reads to inferred fusion references!
+[2019-11-11 22:37:52] Finish filtering fusion-related reads in fusion references U and V!
+[2019-11-11 22:37:53] Finish mapping reads to inferred fusion references!
 Find 22 kind(s) of fcircRNAs!
-[2018-06-02 16:18:49] Finish all! See the result in 'fcircRNA_results.tsv'!
+[2019-11-11 22:37:53] Finish all!See the result in 'fcircRNA_results.tsv'!
 ```
 
