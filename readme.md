@@ -91,13 +91,13 @@ PML-RARA        PML     RARA    28736                  39134                    
 ...
 ```
 Description of each column's values:
-</br>**#Fusion Name** - -The name of the fusion transcipt,from which fusion genes can be infered
+</br>**#Fusion Name** - -The name of the fusion transcript,from which fusion genes can be inferred
 </br>**5'Gene** - -The gene located at the 5' end of the fusion transcript
 </br>**3'Gene** - - The gene located at the 3' end of the fusion transcript
 </br>**5'Gene BreakPoint Pos** - - The position of the break point of the 5' end of the fusion transcript
 </br>**3'Gene BreakPoint Pos** - - The position of the break point of the 3' end of the fusion transcript
-</br>**5'Gene Breakpoint Seq** - - Sequence of the 5' end of the gene in the fusion breakpoint attachment
-</br>**3'Gene Breakpoint Seq** - - Sequence of the 3' end of the gene in the fusion breakpoint attachment
+</br>**5'Gene Breakpoint Seq** - - Sequence of the 5' end of the gene in the fusion breakpoint 
+</br>**3'Gene Breakpoint Seq** - - Sequence of the 3' end of the gene in the fusion breakpoint 
 </br>**5'and 3'Common Breakpoint Seq** - - The same sequence at the breakpoint of the 3' end of the transcript and the 5' end of the gene
 </br>**BreakpointReads Count** - -The number of read spanning the fusion breakpoint
 </br>**BreakpointReads** - -The reads spanning the fusion breakpoint
@@ -145,6 +145,6 @@ Find 274 Reads in U! 274 Reads in V!
 [2018-06-02 16:18:47] Finish filtering fusion-related reads in fusion references U and V!
 [2018-06-02 16:18:49] Finish mapping reads to inferred fusion references!
 Find 22 kind(s) of fcircRNAs!
-[2018-06-02 16:18:49] Finish all!See the result in 'fcircRNA_results.tsv'!
+[2018-06-02 16:18:49] Finish all! See the result in 'fcircRNA_results.tsv'!
 ```
 
