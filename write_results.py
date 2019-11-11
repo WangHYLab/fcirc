@@ -133,7 +133,7 @@ def write_fusion(inferred_sam, ifr="temp/inferred_fusion_results.tsv", out="fusi
                     ','.join([x.query_name for x in sc]),
                     ','.join((str(scplus), str(scminu))),
                     fusion_result[fusionpair][5],
-                    str(p)
+                    str('%.5f'%p)
                 )) + '\n'
                 string += result
     with open(out,'w') as f:
@@ -189,6 +189,7 @@ def write_fcirc(circ_sam, fragmentcount, fr="fusion_results.tsv", out="fcircRNA_
             fcirccount += 1
             circminu = sum([1 for one in circ[key] if one.flag & 16 == 16])
             circplus = len(circ[key]) - circminu
+            FCI=float((circminu + circplus)*(10**6)/int(fusion[key[0]][-2])/int(fragmentcount))
             string += '\t'.join((
             "No_" + str(fcirccount),
             key[0],
@@ -199,7 +200,7 @@ def write_fcirc(circ_sam, fragmentcount, fr="fusion_results.tsv", out="fcircRNA_
             str(circminu + circplus),
             ','.join([x.query_name for x in circ[key]]),
             ','.join((str(circplus), str(circminu))),
-            str((circminu + circplus)/int(fusion[key[0]][-2])/int(fragmentcount))
+            str('%.3f'%FCI)
         )) + '\n'
             with open(out,'w') as f:
                 f.write(string)
