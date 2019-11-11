@@ -91,20 +91,20 @@ PML-RARA        PML     RARA    28736                  39134                    
 ...
 ```
 Description of each column's values:
-</br>**#Fusion Name** - -The name of the fusion transcipt,from which fusion genes can be infered.
-</br>**5'Gene** - -The gene located at the 5' end of the fusion transcript.
-</br>**3'Gene** - - The gene located at the 3' end of the fusion transcript.
+</br>**#Fusion Name** - -The name of the fusion transcipt,from which fusion genes can be infered
+</br>**5'Gene** - -The gene located at the 5' end of the fusion transcript
+</br>**3'Gene** - - The gene located at the 3' end of the fusion transcript
 </br>**5'Gene BreakPoint Pos** - - The position of the break point of the 5' end of the fusion transcript
 </br>**3'Gene BreakPoint Pos** - - The position of the break point of the 3' end of the fusion transcript
-</br>**5'Gene Breakpoint Seq** - - Sequence of the 5' end of the gene in the fusion breakpoint attachment.
+</br>**5'Gene Breakpoint Seq** - - Sequence of the 5' end of the gene in the fusion breakpoint attachment
 </br>**3'Gene Breakpoint Seq** - - Sequence of the 3' end of the gene in the fusion breakpoint attachment
 </br>**5'and 3'Common Breakpoint Seq** - - The same sequence at the breakpoint of the 3' end of the transcript and the 5' end of the gene
-</br>**BreakpointReads Count** - -The number of read spanning the fusion breakpoint.
+</br>**BreakpointReads Count** - -The number of read spanning the fusion breakpoint
 </br>**BreakpointReads** - -The reads spanning the fusion breakpoint
 </br>**BreakpointStrand Count(+,-)** - - The number of reads located in forward Strand and reverse strand respectively
-</br>**ScanningReads Count(+,-)** - - The number of pair of reads are located on both sides of the breakpoint.
-</br>**Fusion Seq Length** - - The length of the fusion transcripts sequence.
-</br>**P-Value** - - Under the assumption of fusion inferred by **Fcirc**, the p value of length cut by breakpoint distribution. If it is smaller than 0.05, the inferred fusion is not correct.
+</br>**ScanningReads Count(+,-)** - - The number of pair of reads are located on both sides of the breakpoint
+</br>**Fusion Seq Length** - - The length of the fusion transcripts sequence
+</br>**P-Value** - - Under the assumption of fusion inferred by **Fcirc**, the p value of length cut by breakpoint distribution. If it is smaller than 0.05, the inferred fusion is not correct
 
 
 **2. FcircRNA information** is stored in file **'fcircRNA_results.tsv'** as the format:
@@ -118,16 +118,16 @@ No_4        	PML-RARA	493	                1298	        1183	                2394
 ...
 ```
 Description of each column's values:
-</br>**#FcircRNA_NO** - The id of fusion circRNA.
+</br>**#FcircRNA_NO** - The id of fusion circRNA
 </br>**Fusion Name** - The fusion gene name constituting the fusion circular RNA
-</br>**Backsplice start** - The starting position of back-spliced.
-</br>**Backsplice end** - The end position of back-spliced..
-</br>**FusionBreakPoint Pos** - The position of fusion breakpoint. 
-</br>**FusionSeq Length** - The length of fusion sequence.
-</br>**Support FcircRNA Reads Count** - The number of reads Supporting the f-circRNA.
-</br>**Support FcircRNA Reads** - The reads Supporting the f-circRNA.
-</br>**FcircRNA Strand Count(+,-)** - The number of reads supporting f-circRNA on positive and negative strand.
-</br>**FCI** - The normalized expression of f-circRNA(reads count/sequencing depth/fusion gene length). 
+</br>**Backsplice start** - The starting position of back-spliced
+</br>**Backsplice end** - The end position of back-spliced
+</br>**FusionBreakPoint Pos** - The position of fusion breakpoint
+</br>**FusionSeq Length** - The length of fusion sequence
+</br>**Support FcircRNA Reads Count** - The number of reads Supporting the f-circRNA
+</br>**Support FcircRNA Reads** - The reads Supporting the f-circRNA
+</br>**FcircRNA Strand Count(+,-)** - The number of reads supporting f-circRNA on positive and negative strand
+</br>**FCI** - The normalized expression of f-circRNA(reads count/sequencing depth/fusion gene length)
 
 ## Quick start
 SRR3239817 from NCBI SRA database, a NB4 sample（test.fastq has been reduced in test_data） sequenced with single-end, 75 bp can be tested here.
