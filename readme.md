@@ -86,7 +86,7 @@ The output includes:
 **1. Fusion information** is stored in a file **'fusion_results.tsv'** as the following format:
 ```
 #Fusion Name    5'Gene  3'Gene  5'Gene BreakPoint Pos   3'Gene BreakPoint Pos   5'Gene Breakpoint Seq   3'Gene Breakpoint Seq   5'and 3'Common Breakpoint Seq   BreakpointReads Count   BreakpointReads         BreakpointStrand Count(+,-)     ScanningReads Count     ScanningReads           ScanningStrand Count(+,-)       Fusion Seq Length   P-Value
-PML-RARA        PML     RARA    28736                  39134                    CAGGGGAAAG              AGCCATTGAG             .                               171                    SRR3239817.18109433...  2,169                           25                       SRR3239817.15285364...     5,2                             38066     0.00438668413546
+PML-RARA	PML	RARA	28736	39134	CAGGGGAAAG	AGCCATTGAG	.	171	SRR3239817.18109433...	2,169	25	SRR3239817.15285364,SRR3239817.48232615...	5,20	38066	0.00439
 ...
 ...
 ```
