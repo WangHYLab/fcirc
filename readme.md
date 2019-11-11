@@ -40,7 +40,7 @@ hisat2-build fusiongenes_ref_U.fa fusiongenes_ref_U
 hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 ```
 
-* (optional) Add gene pairs of fusions you are interested in
+* (optional) Add gene pairs of fusions you are interested in.
 
 ## Usage
 #### Input data
