@@ -79,7 +79,7 @@ Arguments can be used as following:
 ```
 
 #### Output data
-The output includes 
+The output includes: 
 * fusion information
 * f-circRNA information
 
