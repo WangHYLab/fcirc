@@ -127,10 +127,10 @@ The description of each column:
 </br>**Support FcircRNA Reads Count** - - The number of reads supporting the f-circRNA
 </br>**Support FcircRNA Reads** - - The reads supporting the f-circRNA
 </br>**FcircRNA Strand Count(+,-)** - - The number of reads supporting f-circRNA on positive and negative strand
-</br>**FCI** - - The normalized expression of f-circRNA (FCI=(reads count * 10^9)/(sequencing depth * fusion gene length)))
+</br>**FCI** - - The normalized expression of f-circRNA (FCI=(reads count * 10^9)/(sequencing depth * fusion gene length))
 
 ## Quick start
-SRR3239817 from NCBI SRA database, a NB4 sample（test.fastq has been reduced in test_data） sequenced with single-end, 75 bp can be tested here.
+You can start this pipeline using a testing RNA-Seq data, whose reads are partially from a RNA-Seq dataset SRR3239817 (NCBI SRA database),an acute leukaemia cell line NB4
 ```
 python fcirc.py -t 4 -o fcirc_out -x grch37_tran/genome_tran -f known_fusion_dir -1 test_data/test.fastq
 ```
