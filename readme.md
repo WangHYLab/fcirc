@@ -132,7 +132,7 @@ The description of each column:
 ## Quick start
 You can start this pipeline using a testing RNA-Seq data, whose reads are partially from a RNA-Seq dataset SRR3239817 (NCBI SRA database), an acute leukaemia cell line NB4.
 ```
-python fcirc.py -t 4 -o fcirc_out -x grch37_tran/genome_tran -f known_fusion_dir -1 test_data/test.fastq
+python fcirc.py -t 4 -o fcirc_out -x transcriptome_HISAT2_index_path -f known_fusion_directory_path -1  test.fastq_path
 ```
 It costs few minutes. If it runs successfully, some log information will be printed as following:
 ```
