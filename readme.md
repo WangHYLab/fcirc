@@ -1,5 +1,5 @@
 # Fcirc
-**Fcirc** is a pipeline for exploring linear transcripts and circRNAs of known fusions from RNA-Seq data. Known fusion genes are from the multiple databases (COSMIC, ChimerDB, TicDB, FARE-CAFE and FusionCancer) or user-added gene-pairs. It costs less time to find fusions with higher sensitivity than existing methods for detecting fusion. The steps of **Fcirc** are as follows:
+**Fcirc** is a pipeline for exploring linear transcripts and circRNAs of known fusions from RNA-Seq data. Known fusion genes are from the multiple databases (COSMIC, ChimerDB, TicDB, FARE-CAFE and FusionCancer) or user-added gene-pairs. It costs less time to find fusions with higher sensitivity than existing methods for detecting fusion. The steps of Fcirc are as follows:
 
 ![Fcirc pipeline](https://github.com/WangHYLab/supplementary_files/blob/master/Images/Figure_1.png "fcirc pipeline")
 
@@ -7,7 +7,7 @@
 **Fcirc** is written in **python3**, requiring [HISAT2](http://ccb.jhu.edu/software/hisat2/index.shtml) for aligning reads, [samtools](http://www.htslib.org/download/) for selecting reads and python packages numpy, scipy, pysam.
 #### Hardware requirements
 For running Fcirc a computer with the following configuration is needed:
-* minimum 8 GB of RAM (aligning to hunman genome reference)
+* minimum 8 GB of RAM (aligning to human genome reference)
 * 1 CPU (minimum)
 
 #### Installing Fcirc from Github Clone
@@ -59,17 +59,17 @@ Arguments can be used as following:
         -f <ht2-fusion-idx-dir>, --fusion_idx_dir <ht2-fusion-idx-dir>
             fusion index directory (contains fusiongenes_ref_U and fusiongenes_ref_V)
         -c <fusion-genes-coordinates> --fusion_genes_coord
-            fusion genes coordinates file(defalut: fusion_genes_coordinate.txt)    
+            fusion genes coordinates file (defalut: fusion_genes_coordinate.txt)    
         -1 <fastq1>, --file1 <fastq1>
             fastq file 1 (single-end pattern:only -1)
         -2 <fastq2>, --file2 <fastq2>
-            fastq file 2 (paired-end pattern:-1 and -2, files should be like -1 xxx_1.fastq -2 xxx_2.fastq)
+            fastq file 2 (paired-end pattern: -1 and -2, files should be like -1 xxx_1.fastq -2 xxx_2.fastq)
 
     Optional:     
         -o <output_dir>, --output <outout_dir>
             output file directory (default: .)
         -t <int>, --thread <int>
-            number of hisat2 alignment and pysam filter threads to launch (default:1)    
+            number of hisat2 alignment and pysam filter threads to launch (default: 1)    
 
     Others:
         -h, --help
@@ -130,7 +130,7 @@ The description of each column:
 </br>**FCI** - - The normalized expression of f-circRNA (FCI=(reads count * 10^9)/(sequencing depth * fusion gene length))
 
 ## Quick start
-You can start this pipeline using a testing RNA-Seq data, whose reads are partially from a RNA-Seq dataset SRR3239817 (NCBI SRA database),an acute leukaemia cell line NB4
+You can start this pipeline using a testing RNA-Seq data, whose reads are partially from a RNA-Seq dataset SRR3239817 (NCBI SRA database), an acute leukaemia cell line NB4.
 ```
 python fcirc.py -t 4 -o fcirc_out -x grch37_tran/genome_tran -f known_fusion_dir -1 test_data/test.fastq
 ```
