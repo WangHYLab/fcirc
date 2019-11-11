@@ -134,7 +134,7 @@ You can start this pipeline using a testing RNA-Seq data, whose reads are partia
 ```
 python fcirc.py -t 4 -o fcirc_out -x grch37_tran/genome_tran -f known_fusion_dir -1 test_data/test.fastq
 ```
-It costs about half an hour. If it runs successfully, some log information will be printed as following:
+It costs few minutes. If it runs successfully, some log information will be printed as following:
 ```
 [2018-06-02 16:06:59] Start running # python fcirc.py -t 4 -o fcirc_out -x grch37_tran/genome_tran -f known_fusion_dir -1 SRR3239817.fastq
 [2018-06-02 16:13:07] Finish mapping reads to transcription!
