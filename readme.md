@@ -86,7 +86,8 @@ The output includes:
 **1. Fusion information** is stored in a file **'fusion_results.tsv'** as the following format:
 ```
 #Fusion Name    5'Gene  3'Gene  5'Gene BreakPoint Pos   3'Gene BreakPoint Pos   5'Gene Breakpoint Seq   3'Gene Breakpoint Seq   5'and 3'Common Breakpoint Seq   BreakpointReads Count   BreakpointReads         BreakpointStrand Count(+,-)     ScanningReads Count     ScanningReads           ScanningStrand Count(+,-)       Fusion Seq Length   P-Value
-PML-RARA	PML	RARA	28736	39134	CAGGGGAAAG	AGCCATTGAG	.	171	SRR3239817.18109433...	2,169	25	SRR3239817.15285364,SRR3239817.48232615...	5,20	38066	0.00439
+PML-RARA	PML	RARA	28736	39134	CAGGGGAAAG	AGCCATTGAG	.	171	SRR3239817.18109433,SRR3239817.5306660...   	2,169	25	SRR3239817.15285364,SRR3239817.37768958...  	5,20	38066	0.14159
+
 ...
 ...
 ```
@@ -110,10 +111,10 @@ The description of each column:
 **2. FcircRNA information** is stored in a file **'fcircRNA_results.tsv'** as the following format:
 ```
 #FcircRNA_NO	Fusion Name	Backsplice start	Backsplice end	FusionBreakPoint Pos	FusionSeq Length	Support FcircRNA Reads Count	Support FcircRNA Reads	                FcircRNA Strand Count(+,-)	FCI
-No_1	PML-RARA	3400	32843	28736	38066	2	SRR3239817.46897792,SRR3239817.4206524	0,2	0.179
-No_2	PML-RARA	3494	36659	28736	38066	3	SRR3239817.32895407,SRR3239817.19967138,SRR3239817.2229431	0,3	0.269
-No_3	PML-RARA	3782	32829	28736	38066	1	SRR3239817.28808693	0,1	0.090
-...
+No_1	PML-RARA	28409	35807	28736	38066	2	SRR3239817.302047,SRR3239817.15013868	0,2	179.319
+No_2	PML-RARA	28261	30299	28736	38066	2	SRR3239817.14791828,SRR3239817.49034432	0,2	179.319
+No_3	PML-RARA	3766	32481	28736	38066	3	SRR3239817.31829112,SRR3239817.6429653,SRR3239817.3386413	0,3	268.978
+
 ...
 ```
 The description of each column:
