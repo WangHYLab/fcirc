@@ -61,7 +61,7 @@ Arguments can be used as following:
         -c <fusion-genes-coordinates> --fusion_genes_coord
             fusion genes coordinates file (defalut: fusion_genes_coordinate.txt)    
         -1 <fastq1>, --file1 <fastq1>
-            fastq file 1 (single-end pattern:only -1)
+            fastq file 1 (single-end pattern: only -1)
         -2 <fastq2>, --file2 <fastq2>
             fastq file 2 (paired-end pattern: -1 and -2, files should be like -1 xxx_1.fastq -2 xxx_2.fastq)
 
