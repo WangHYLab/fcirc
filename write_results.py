@@ -189,7 +189,7 @@ def write_fcirc(circ_sam, fragmentcount, fr="fusion_results.tsv", out="fcircRNA_
             fcirccount += 1
             circminu = sum([1 for one in circ[key] if one.flag & 16 == 16])
             circplus = len(circ[key]) - circminu
-            FCI=float((circminu + circplus)*(10**6)/int(fusion[key[0]][-2])/int(fragmentcount))
+            FCI=float((circminu + circplus)*(10**9)/int(fusion[key[0]][-2])/int(fragmentcount))
             string += '\t'.join((
             "No_" + str(fcirccount),
             key[0],
