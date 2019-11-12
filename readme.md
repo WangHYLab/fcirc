@@ -1,5 +1,5 @@
 # Fcirc
-**Fcirc** is a pipeline for exploring linear transcripts and circRNAs of known fusions from RNA-Seq data. Known fusion genes are from the multiple databases (COSMIC, ChimerDB, TicDB, FARE-CAFE and FusionCancer) or user-added gene-pairs. It costs less time to find fusions with higher sensitivity than existing methods for detecting fusion. The steps of Fcirc are as follows:
+**Fcirc** is a pipeline for exploring linear transcripts and circRNAs of known fusions based on RNA-Seq data. Known fusion genes are from the multiple databases (COSMIC, ChimerDB, TicDB, FARE-CAFE and FusionCancer) or user-added gene-pairs. It costs less time to find fusions with higher sensitivity than existing methods for detecting fusions. The steps of Fcirc are as follows:
 
 ![Fcirc pipeline](https://github.com/WangHYLab/supplementary_files/blob/master/Images/Figure_1.png "fcirc pipeline")
 
@@ -126,10 +126,10 @@ The description of each column:
 </br>**Support FcircRNA Reads Count** - - The number of reads supporting the f-circRNA
 </br>**Support FcircRNA Reads** - - The reads supporting the f-circRNA
 </br>**FcircRNA Strand Count(+,-)** - - The number of reads supporting f-circRNA on positive and negative strand
-</br>**FCI** - - The normalized expression of f-circRNA (FCI=(reads count * 10^6)/(sequencing depth * fusion gene length))
+</br>**FCI** - - The normalized expression of f-circRNA (FCI=(reads count * 10^9)/(sequencing depth * fusion gene length))
 
 ## Quick start
-You can start this pipeline using a testing RNA-Seq data, whose reads are partially from a RNA-Seq dataset SRR3239817 (NCBI SRA database), an acute leukaemia cell line NB4.
+You can start this pipeline using a testing RNA-Seq data, whose reads are partially from a RNA-Seq dataset SRR3239817 (NCBI SRA database), for an acute leukaemia cell line NB4.
 ```
 python fcirc.py -t 4 -o fcirc_out -x transcriptome_HISAT2_index_path -f known_fusion_directory_path -1  test_fastq_path
 ```
@@ -144,6 +144,6 @@ Find 274 Reads in U! 274 Reads in V!
 [2019-11-11 22:37:52] Finish filtering fusion-related reads in fusion references U and V!
 [2019-11-11 22:37:53] Finish mapping reads to inferred fusion references!
 Find 22 kind(s) of fcircRNAs!
-[2019-11-11 22:37:53] Finish all!See the result in 'fcircRNA_results.tsv'!
+[2019-11-11 22:37:53] Finish all! See the result in 'fcircRNA_results.tsv'!
 ```
 
