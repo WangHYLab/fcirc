@@ -159,9 +159,9 @@ def main(argvs):
         projectname = fastq1_path.split('/')[-1].rstrip('.fastq').rstrip('.fq')
 
         hisat2_trans_command = '''hisat2 -p {thread} \
-            --mp 12,4 \
-            --rdg 10,6 \
-            --rfg 10,6 \
+            --mp 6,2 \
+            --rdg 5,3 \
+            --rfg 5,3 \
             --no-softclip \
             -x {hisat2_trans_idx} \
             -U {singlefastq} \
@@ -295,9 +295,9 @@ def main(argvs):
         projectname = fastq1_path.split('/')[-1].split('_1')[0]
 
         hisat2_trans_command = '''hisat2 -p {thread} \
-            --mp 12,4 \
-            --rdg 10,6 \
-            --rfg 10,6 \
+            --mp 6,2 \
+            --rdg 5,3 \
+            --rfg 5,3 \
             --no-softclip \
             -x {hisat2_trans_idx} \
             -1 {mate1fastq} \
