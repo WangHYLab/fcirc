@@ -5,6 +5,7 @@ import os
 import time
 import logging
 from filter_reads import drop_mapped_single_tofastq, drop_unmapped_single_tosam, drop_mapped_paired_tofastq, drop_unmapped_paired_tosam, sam_single_tofastq, sam_paired_tofastq, count_reads
+from quality_control import quality_filter_SE,quality_filter_PE
 from getpairedreads import getpairedreads
 from reconstruction import reconstruct
 from transform import transform_sam
@@ -18,7 +19,7 @@ def usage():
     usage_string = '''
 Program:    fcirc (fusion circRNA identifier)
 Version:    1.0.1(written by python3)
-Contact:    HongZhang Xue <xuehzh95@foxmail.com> caizhaoqing<2228908525@qq.com>
+Contact:    HongZhang Xue <xuehzh95@foxmail.com>
 
 Usage:      python fcirc.py [options] -x <ht2-trans-idx> -f <ht2-fusion-idx-dir> {-1 <fastq1> | -1 <fastq1> -2 <fastq2>}
 
@@ -36,9 +37,10 @@ Arguments:
             fastq file 2 (paired-end pattern:-1 and -2, files should be like -1 xxx_1.fastq -2 xxx_2.fastq)
 
     Optional:
+	    -q <quality_val>
+		   the minimum phred qulaity of read(default:0)
         -o <output_dir>, --output <outout_dir>
             output file directory (default: .)
-
         -t <int>, --thread <int>
             number of hisat2 alignment and pysam filter threads to launch (default:1)
 
@@ -66,12 +68,13 @@ def main(argvs):
         sys.exit()
 
     try:
-        opts, args = getopt.getopt(argvs, "hv1:2:x:f:c:o:t:", ["help", "version", "file1", "file2" ,"trans_idx", "fusion_idx_dir","fusion_genes_coord", "output", "thread"])
+        opts, args = getopt.getopt(argvs, "hv1:2:x:f:c:q:o:t:", ["help", "version", "file1", "file2" ,"trans_idx", "fusion_idx_dir","fusion_genes_coord", "output", "thread"])
     except getopt.GetoptError as err:
         print(err)
         sys.exit(2)
 
     # default arguments:
+    quality = 0
     thread = '1'
     output_path = os.getcwd()
 
@@ -80,6 +83,7 @@ def main(argvs):
     fastq2_path = ''
     trans_idx_path = ''
     fusion_idx_dir_path = ''
+    pattern="single-end"
     software_dir=os.path.split(os.path.abspath(sys.argv[0]))[0]
     fusion_genes_coord=software_dir+'/'+'fusion_genes_coordinate.txt'
     #if not os.path.exists(Genes_coord):
@@ -100,6 +104,7 @@ def main(argvs):
             abs_arg = abs_path(arg)
             if os.path.isfile(abs_arg):
                 fastq1_path = abs_arg
+
 
         if opt in ('-2','--file2'):
             pattern = "paired-end"
@@ -131,6 +136,11 @@ def main(argvs):
                 print('Error to locate fusion genes coordinate file,Please check{path}'.format(path=abs_arg))
                 sys.exit(1)
 
+        if opt in ('-q'):
+            qulaity=int(arg)
+            if qulaity<0:
+                print("Error: The quality value can not be less than 0")
+                exit(1)
 
         if opt in ('-o','--output'):
             abs_arg = abs_path(arg)
@@ -177,6 +187,12 @@ def main(argvs):
 
         print("[{now}] Finish mapping reads to transcription!".format(now=str_current_time()))
         unmapped_fastq_path = drop_mapped_single_tofastq("temp/trans_" + projectname + ".sam")
+
+        if quality>0:
+            quality_cmd=quality_filter_SE(quality,unmapped_fastq_path,'single-end')
+            if quality_cmd != 0:
+                print("Error: Fail to filter quality reads")
+                exit(1)
 
         hisat2_fusionU_command = '''hisat2 -p {thread} \
             --mp 6,2 \
@@ -250,8 +266,8 @@ def main(argvs):
         print("[{now}] Finish mapping reads to inferred fusion references!".format(now=str_current_time()))
 
         # check the distribution near the fusion break point
-        return_state = write_fusion("temp/inferred_fusion.sam")
-        if return_state != 0:
+        fusion_result = write_fusion("temp/inferred_fusion.sam")
+        if fusion_result == -1:
             print("[{now}] No fusion gene is detected!".format(now=str_current_time()))
             exit(return_state)
 
@@ -274,8 +290,8 @@ def main(argvs):
             exit(return_state)
         # count input reads
         readcount = count_reads("temp/trans_" + projectname + ".sam")
-        return_state  = write_fcirc("temp/inferred_fusion_circ.sam", readcount)
-        if return_state != 0:
+        return_state  = write_fcirc("temp/inferred_fusion_circ.sam", readcount,fusion_result)
+        if return_state == -1:
             print("[{now}] No fusion circRNA is detected!".format(now=str_current_time()))
             exit(return_state)
         print("[{now}] Finish all!See the result in 'fcircRNA_results.tsv'!".format(now=str_current_time()))
@@ -288,6 +304,7 @@ def main(argvs):
 
     # paired-end pattern
     elif pattern == "paired-end":
+        print(fastq2_path)
         if fastq1_path == '' or fastq2_path == '':
             print("Error:Fail to locate fastq files,please check the path")
             sys.exit(1)
@@ -315,6 +332,11 @@ def main(argvs):
         print("[{now}] Finish mapping reads to transcription!".format(now=str_current_time()))
 
         unmapped_fastq1_path, unmapped_fastq2_path = drop_mapped_paired_tofastq("temp/trans_" + projectname + ".sam")
+        if quality>0:
+            quality_cmd=quality_filter_PE(unmapped_fastq1_path,unmapped_fastq2_path,quality,'pair-end')
+            if quality_cmd != 0:
+                print("Error: Fail to filter quality reads")
+                exit(1)
 
         hisat2_fusionU_command = '''hisat2 -p {thread} \
             --mp 12,4 \
@@ -388,14 +410,14 @@ def main(argvs):
                                                             output_inferred_fusionsam="temp/inferred_fusion.sam",
                                                             output_inferred_fusionlog="temp/inferred_fusion.log")
         return_state = os.system(hisat2_verify_fusion_command)
-        if return_state != 0:
+        if return_state == -1:
             print("[{now}] No fusion gene is detected!".format(now=str_current_time()))
             exit(return_state)
         print("[{now}] Finish mapping reads to inferred fusion references!".format(now=str_current_time()))
 
         # check the distribution near the fusion break point
-        return_state = write_fusion("temp/inferred_fusion.sam")
-        if return_state != 0:
+        fusion_result = write_fusion("temp/inferred_fusion.sam")
+        if  fusion_result== -1:
             exit(return_state)
 
 
@@ -419,8 +441,8 @@ def main(argvs):
             exit(return_state)
         # count input reads
         readcount = count_reads("temp/trans_" + projectname + ".sam")
-        return_state  = write_fcirc("temp/inferred_fusion_circ.sam", readcount)
-        if return_state != 0:
+        return_state  = write_fcirc("temp/inferred_fusion_circ.sam", readcount,fusion_result)
+        if return_state ==-1:
             print("[{now}] No fusion circRNA is detected!".format(now=str_current_time()))
             exit(return_state)
         print("[{now}] Finish all!See the result in 'fcircRNA_results.tsv'!".format(now=str_current_time()))
