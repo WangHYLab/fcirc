@@ -93,11 +93,8 @@ The output includes:
 
 **1. Fusion information** is stored in a file **'fusion_results.tsv'** as the following format:
 ```
-#Fusion Name    5'Gene  3'Gene  5'Gene BreakPoint Pos   3'Gene BreakPoint Pos   5'Gene Breakpoint Seq   3'Gene Breakpoint Seq   5'and 3'Common Breakpoint Seq   BreakpointReads Count   BreakpointReads         BreakpointStrand Count(+,-)     ScanningReads Count     ScanningReads           ScanningStrand Count(+,-)       Fusion Seq Length   P-Value
-PML-RARA	PML	RARA	28736	39134	CAGGGGAAAG	AGCCATTGAG	.	171	SRR3239817.18109433,SRR3239817.5306660...   	2,169	25	SRR3239817.15285364,SRR3239817.37768958...  	5,20	38066	0.14159
-
-...
-...
+#Fusion_Name	5'Gene	3'Gene	5'Gene_chr	5'Gene_strand	3'Gene_chr	3'Gene_strand	5'Gene_BreakPoint_Pos	3'Gene_BreakPoint_Pos	5'and3'_Common_Breakpoint_Seq	BreakpointReads_Count	BreakpointReads	BreakpointStrand_Count(+,-)	ScanningReads_Count	ScanningReads	ScanningStrand_Count(+,-)	P-Value
+PML-RARA	PML	RARA	15	+	17	+	74023408	40348313	.	117	SRR3239817.48728782,SRR3239817.46047306,SRR3239817.46553524,SRR3239817.16929141,SRR3239817.19547854,SRR3239817.24567755,SRR3239817,......
 ```
 The description of each column:
 </br>**#Fusion Name** - - The name of the fusion
@@ -118,11 +115,15 @@ The description of each column:
 
 **2. FcircRNA information** is stored in a file **'fcircRNA_results.tsv'** as the following format:
 ```
-#FcircRNA_NO	Fusion Name	Backsplice start	Backsplice end	FusionBreakPoint Pos	FusionSeq Length	Support FcircRNA Reads Count	Support FcircRNA Reads	                FcircRNA Strand Count(+,-)	FCI
-No_1	PML-RARA	28409	35807	28736	38066	2	SRR3239817.302047,SRR3239817.15013868	0,2	179.319
-No_2	PML-RARA	28261	30299	28736	38066	2	SRR3239817.14791828,SRR3239817.49034432	0,2	179.319
-No_3	PML-RARA	3766	32481	28736	38066	3	SRR3239817.31829112,SRR3239817.6429653,SRR3239817.3386413	0,3	268.978
-
+#FcircRNA_NO	Fusion Name	Backsplice_start	Backsplice_end	Fusion5'_BreakPoint_Pos	Fusion3'_BreakPoint_Pos	Support_FcircRNA_Reads_Count	FcircRNA_Strand_Count(+, -)	Support_FcircRNA_Reads
+No_1	PML-RARA	15:74023268:+	17:40351924:+	15:74023408:+	17:40348313:+	1	0,1	SRR3239817.23906640
+No_2	PML-RARA	15:73998438:+	17:40352058:+	15:74023408:+	17:40348313:+	3	0,3	SRR3239817.6429653,SRR3239817.3386413,SRR3239817.31829112
+No_3	PML-RARA	15:73998328:+	17:40354455:+	15:74023408:+	17:40348313:+	1	0,1	SRR3239817.3123010
+No_4	PML-RARA	15:73998193:+	17:40352044:+	15:74023408:+	17:40348313:+	5	0,5	SRR3239817.29876711,SRR3239817.36732283,SRR3239817.47058005,SRR3239817.32495621,SRR3239817.13611951
+No_5	PML-RARA	15:73998454:+	17:40352406:+	15:74023408:+	17:40348313:+	1	0,1	SRR3239817.28808693
+No_6	PML-RARA	15:74022909:+	17:40355327:+	15:74023408:+	17:40348313:+	3	0,3	SRR3239817.42010789,SRR3239817.11495312,SRR3239817.33451057
+......
+......
 ...
 ```
 The description of each column:
@@ -144,15 +145,14 @@ python fcirc.py -t 4 -o fcirc_out -x transcriptome_HISAT2_index_path -f known_fu
 ```
 It costs few minutes. If it runs successfully, some log information will be printed as following:
 ```
-2019-11-11 22:37:46,453 fcirc.py[line:426][2019-11-11 22:37:46] Start running # fcirc.py -t 4 -o fcirc_out0 -x transcriptome_HISAT2_index_path -f known_fusion_directory_path -1 test_fastq_path
-[2019-11-11 22:37:51] Finish mapping reads to transcription!
-[2019-11-11 22:37:51] Finish mapping reads to fusion references U!
-[2019-11-11 22:37:52] Finish mapping reads to fusion references V!
-[2019-11-11 22:37:52] Finish dropping unmapped read in fusion references U and V!
-Find 274 Reads in U! 274 Reads in V!
-[2019-11-11 22:37:52] Finish filtering fusion-related reads in fusion references U and V!
-[2019-11-11 22:37:53] Finish mapping reads to inferred fusion references!
+[2020-04-29 11:00:32] Finish mapping reads to transcription!
+[2020-04-29 11:00:33] Finish mapping reads to fusion references U!
+[2020-04-29 11:00:33] Finish mapping reads to fusion references V!
+[2020-04-29 11:00:33] Finish dropping unmapped read in fusion references U and V!
+Find 215 Reads in U! 215 Reads in V!
+[2020-04-29 11:00:34] Finish filtering fusion-related reads in fusion references U and V!
+[2020-04-29 11:00:36] Finish mapping reads to inferred fusion references!
 Find 22 kind(s) of fcircRNAs!
-[2019-11-11 22:37:53] Finish all! See the result in 'fcircRNA_results.tsv'!
+[2020-04-29 11:00:36] Finish all!See the result in 'fcircRNA_results.tsv'!
 ```
 
