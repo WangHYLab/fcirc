@@ -177,7 +177,6 @@ def main(fusion_tab,gtf,ref_genome):
         print("Failed to build the bipartite graph pairs")
     else:
         print("Sucessfully building the bipartite graph pairs")
-        exit(1)
 
 
 
@@ -226,6 +225,12 @@ if __name__ == '__main__':
         else:
             assert False, "unhandled option"
     main(fusion_tab,gtf,genome)
+    movement=os.system("mv %s fusion_total_index/"%(fusion_tab))
+    if movement==0:
+        print("All processes done!")
+    else:
+        print("Fail to move fusion_tab into fusion_total_index")
+        exit(1)
 
 
 
