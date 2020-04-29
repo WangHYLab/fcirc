@@ -26,6 +26,7 @@ or
 pip install numpy
 pip install scipy
 pip install pysam
+pip install cutadapt
 ```
 Make sure that **hisat2** and **samtools** are added to environment variables so that Fcirc can invoke them.
 
@@ -41,6 +42,11 @@ hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 ```
 
 * (optional) Add gene pairs of fusions you are interested in.
+```
+python3 build_graph.py --genome absolute__to_genome --gtf absolute__to_gtf --tab absolute_path_to_fusionpairs_table
+    
+```
+** Warning: gene pairs joined with'--' not '-' should be placed in the first column of fusionpairs_table
 
 ## Usage
 #### Input data
@@ -65,7 +71,9 @@ Arguments can be used as following:
         -2 <fastq2>, --file2 <fastq2>
             fastq file 2 (paired-end pattern: -1 and -2, files should be like -1 xxx_1.fastq -2 xxx_2.fastq)
 
-    Optional:     
+    Optional:
+       -q <quality_val>
+           the minimum phred qulaity of read(default:0)
         -o <output_dir>, --output <outout_dir>
             output file directory (default: .)
         -t <int>, --thread <int>
