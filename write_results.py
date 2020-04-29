@@ -202,12 +202,16 @@ def write_fcirc(circ_sam, fragmentcount, fusion_result, fr="fusion_results.tsv",
             fcirccount += 1
             circminu = sum([1 for one in circ[key] if one.flag & 16 == 16])
             circplus = len(circ[key]) - circminu
-            strand_bkstart=fusion[key[0]][3]
-            strand_bkend=fusion[key[0]][5]
+            strand_bkstart=fusion[key[0]][4]
+            strand_bkend=fusion[key[0]][6]
+            f5_start,f5_end=fusion_result[tuple(key[0].split('-'))][2].split(':')
+            f5_total=int(f5_end)-int(f5_start)
+            f3_start,f3_end=fusion_result[tuple(key[0].split('-'))][6].split(':')
+            f3_total=int(f3_end)-int(f3_start)
             if strand_bkstart=='+':
-                bkstart_pos=str(int(fusion_result[tuple(key[0].split('-'))][0])+int(key[1]))
+                bkstart_pos=str(int(f5_start)+int(key[1]))
             else:
-                bkstart_pos=str(int(fusion_result[tuple(key[0].split('-'))][0])-int(key[1]))
+                bkstart_pos=str(int(f5_start)+f5_total-int(key[1]))
             if strand_bkend=='+':
                 bkend_pos=str(int(fusion[key[0]][8])+(int(key[2])-int(fusion_result[tuple(key[0].split('-'))][3])))
             else:
