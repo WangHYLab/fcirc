@@ -55,7 +55,7 @@ The input data shall be single-end or paired-end RNA-Seq in FASTQ format, which 
 #### Command line options
 Fcirc can be run with a simple command line.
 ```
-python fcric.py [options] -x <ht2-trans-idx> -f <ht2-fusion-idx-dir> -c <fusion-genes-coordinates> {-1 <fastq1> | -1 <fastq1> -2 <fastq2>} 
+python fcirc.py [options] -x <ht2-trans-idx> -f <ht2-fusion-idx-dir> -c <fusion-genes-coordinates> {-1 <fastq1> | -1 <fastq1> -2 <fastq2>} 
 ```
 Arguments can be used as following:
 ```
