@@ -37,8 +37,8 @@ Arguments:
             fastq file 2 (paired-end pattern:-1 and -2, files should be like -1 xxx_1.fastq -2 xxx_2.fastq)
 
     Optional:
-	    -q <quality_val>
-		   the minimum phred qulaity of read(default:0)
+	-q <quality_val>
+            the minimum phred qulaity of read(default:0)
         -o <output_dir>, --output <outout_dir>
             output file directory (default: .)
         -t <int>, --thread <int>
