@@ -100,16 +100,19 @@ The description of each column:
 </br>**#Fusion Name** - - The name of the fusion
 </br>**5'Gene** - - The gene encoding the 5' end of the fusion transcript
 </br>**3'Gene** - - The gene encoding the 3' end of the fusion transcript
+</br>**5'Gene_chr**- - The chromosome of 5'end gene
+</br>**5'Gene_strand**- - The strand of 5'end gene
+</br>**3'Gene_chr** -- The chromosome of 3'end gene
+</br>**3'Gene_strand**- - The strand of 3'end gene
 </br>**5'Gene BreakPoint Pos** - - The position of the breakpoint for the 5' end of the fusion transcript
 </br>**3'Gene BreakPoint Pos** - - The position of the breakpoint for the 3' end of the fusion transcript
-</br>**5'Gene Breakpoint Seq** - - Sequence of the 5'Gene at the fusion breakpoint 
-</br>**3'Gene Breakpoint Seq** - - Sequence of the 3'Gene at the fusion breakpoint 
 </br>**5'and 3'Common Breakpoint Seq** - - The same sequence at the breakpoint of the 3' end of the gene and the 5' end of the gene
 </br>**BreakpointReads Count** - -The number of reads spanning the fusion breakpoint
 </br>**BreakpointReads** - -The reads spanning the fusion breakpoint
 </br>**BreakpointStrand Count(+,-)** - - The number of reads located in forward strand and reverse strand respectively
 </br>**ScanningReads Count(+,-)** - - The number of pair of reads are located on both sides of the breakpoint
-</br>**Fusion Seq Length** - - The length of the fusion transcript
+</br>**ScanningReads**- - The reads located on both sides of the breakpoint
+</br>**ScanningStrand_Count(+,-)** -- The number of Scanning reads located in forward strand and reverse strand respectively
 </br>**P-Value** - - A p value indicating if reads around the breakpoint are evenly distributed
 
 
@@ -131,12 +134,11 @@ The description of each column:
 </br>**Fusion Name** - - The name of fusion gene
 </br>**Backsplice start** - - The starting position of back-spliced end
 </br>**Backsplice end** - - The end position of back-spliced end
-</br>**FusionBreakPoint Pos** - - The position of fusion breakpoint
-</br>**FusionSeq Length** - - The length of fusion sequence
-</br>**Support FcircRNA Reads Count** - - The number of reads supporting the f-circRNA
+</br>**Fusion5'_BreakPoint_Pos** - - The position of fusion breakpoint on 5'end
+</br>**Fusion3'_BreakPoint_Pos** - - The position of fusion breakpoint on 3'end
+</br>**Support_FcircRNA_Reads_Count** - - The number of reads supporting the f-circRNA
+</br>**FcircRNA_Strand_Count(+, -)** - - The number of reads supporting f-circRNA on positive and negative strand
 </br>**Support FcircRNA Reads** - - The reads supporting the f-circRNA
-</br>**FcircRNA Strand Count(+,-)** - - The number of reads supporting f-circRNA on positive and negative strand
-</br>**FCI** - - The normalized expression of f-circRNA (FCI=(reads count * 10^9)/(sequencing depth * fusion gene length))
 
 ## Quick start
 You can start this pipeline using a testing RNA-Seq data, whose reads are partially from a RNA-Seq dataset SRR3239817 (NCBI SRA database), for an acute leukaemia cell line NB4.
