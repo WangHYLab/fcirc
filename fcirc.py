@@ -19,7 +19,7 @@ def usage():
     usage_string = '''
 Program:    fcirc (fusion circRNA identifier)
 Version:    1.0.1(written by python3)
-Contact:    HongZhang Xue <xuehzh95@foxmail.com>
+Contact:    Zhaoqing Cai <caizhaoqingeawt@163.com> HongZhang Xue <xuehzh95@foxmail.com>
 
 Usage:      python fcirc.py [options] -x <ht2-trans-idx> -f <ht2-fusion-idx-dir> {-1 <fastq1> | -1 <fastq1> -2 <fastq2>}
 
@@ -304,7 +304,6 @@ def main(argvs):
 
     # paired-end pattern
     elif pattern == "paired-end":
-        print(fastq2_path)
         if fastq1_path == '' or fastq2_path == '':
             print("Error:Fail to locate fastq files,please check the path")
             sys.exit(1)
