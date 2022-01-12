@@ -1,7 +1,7 @@
 # Fcirc
 **Fcirc** is a pipeline for exploring linear transcripts and circRNAs of known fusions based on RNA-Seq data. Known fusion genes are from the multiple databases (COSMIC, ChimerDB, TicDB, FARE-CAFE and FusionCancer) or user-added gene-pairs. It costs less time to find fusions with higher sensitivity than existing methods for detecting fusions. The steps of Fcirc are as follows:
 
-![Fcirc pipeline](https://github.com/WangHYLab/supplementary_files/blob/master/Images/Figure_1.png "fcirc pipeline")
+![Fcirc pipeline](https://github.com/WangHYLab/supplementary_files/blob/master/Images/Figure_1small.png "fcirc pipeline")
 
 ## Installation
 **Fcirc** is written in **python3**, requiring [HISAT2](http://ccb.jhu.edu/software/hisat2/index.shtml) for aligning reads, [samtools](http://www.htslib.org/download/) for selecting reads and python packages numpy, scipy, pysam.
@@ -31,7 +31,7 @@ pip install cutadapt
 Make sure that **hisat2** and **samtools** are added to environment variables so that Fcirc can invoke them.
 
 #### Preparing genome resource and known fusion-pairs
-* The genome resource is hisat2 index, which can be downloaded from hisat2 websites[http://ccb.jhu.edu/software/hisat2/index.shtml]. For human fusion transcript detection, it's recommended to use genome_tran of GRCh38 or GRCh37. It can also be finished with FASTA sequence file and annotation GTF file by hisat2 script.
+* The genome resource is hisat2 index, which can be downloaded from [hisat2 website](http://ccb.jhu.edu/software/hisat2/index.shtml). For human fusion transcript detection, it's recommended to use genome_tran of GRCh38 or GRCh37. It can also be finished with [FASTA sequence file and annotation GTF file]((http://asia.ensembl.org/info/data/ftp/index.html)) by hisat2 script.
 
 * Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be built by hisat2-build in reference_fusion_info directory as follows:
 
@@ -46,7 +46,7 @@ hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 python3 build_graph.py --genome absolute__to_genome --gtf absolute__to_gtf --tab absolute_path_to_fusionpairs_table
     
 ```
-#<font color='red'>  Warning: gene pairs joined with'--' not '-' should be placed in the first column of fusionpairs_table </font>
+# <font color='red'>  Warning: gene pairs joined with'--' not '-' should be placed in the first column of fusionpairs_table </font>
 
 ## Usage
 #### Input data
