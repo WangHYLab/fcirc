@@ -46,7 +46,8 @@ hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 python3 build_graph.py --genome absolute__to_genome --gtf absolute__to_gtf --tab absolute_path_to_fusionpairs_table
     
 ```
-# <font color='red'>  Warning: gene pairs joined with'--' not '-' should be placed in the first column of fusionpairs_table </font>
+
+##### <font color='red'>  Warning: gene pairs joined with'--' not '-' should be placed in the first column of fusionpairs_table </font>
 
 ## Usage
 #### Input data
