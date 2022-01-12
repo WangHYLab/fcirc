@@ -148,6 +148,7 @@ def connect_sequence(seq_head, seq_tail):
     if seq_head[-1] != seq_tail[0].upper():
         return seq_head + seq_tail
     else:
+        common_len = 0
         for common_len in range(1, int(0.5 * min(len(seq_head), len(seq_tail)))):
             if seq_head[-1 - common_len] != seq_tail[0 + common_len].upper():
                 break
@@ -162,6 +163,7 @@ def common_seq(seq_head, seq_tail):
     if seq_head[-1] != seq_tail[0].upper():
         return "."
     else:
+        common_len = 0
         for common_len in range(1, int(0.5 * min(len(seq_head), len(seq_tail)))):
             if seq_head[-1 - common_len] != seq_tail[0 + common_len].upper():
                 break
