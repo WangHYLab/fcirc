@@ -157,5 +157,5 @@ Find 274 Reads in U! 274 Reads in V!
 [2022-01-13 21:48:27] Finish filtering fusion-related reads in fusion references U and V!
 [2022-01-13 21:48:29] Finish mapping reads to inferred fusion references!
 Find 22 kind(s) of fcircRNAs!
-[2022-01-13 21:48:29] Finish all!See the result in 'fcircRNA_results.tsv'!```
-
+[2022-01-13 21:48:29] Finish all!See the result in 'fcircRNA_results.tsv'!
+```
