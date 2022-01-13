@@ -70,11 +70,11 @@ def write_fusion(inferred_sam, ifr="temp/inferred_fusion_results.tsv", out="fusi
     fusion_reads = {}
     for read in file:
         if not read.flag & 4:
-            temp = read.reference_name.split('-')
+            temp = read.reference_name.split('--')
             fusion5 = temp[0]
             fusion3 = temp[1]
             if len(temp) == 3:
-                fusion5 = temp[0] + '-' + temp[1]
+                fusion5 = temp[0] + '--' + temp[1]
                 fusion3 = temp[2]
             if (fusion5, fusion3) not in fusion_reads:
                 fusion_reads[(fusion5, fusion3)] = set()
@@ -132,7 +132,7 @@ def write_fusion(inferred_sam, ifr="temp/inferred_fusion_results.tsv", out="fusi
                     breakpos3=str(int(f3_end) - int(fusion_result[fusionpair][7]))
 
                 result = '\t'.join((
-                    '-'.join(fusionpair),
+                    '--'.join(fusionpair),
                     fusionpair[0],
                     fusionpair[1],
                     fusion_result[fusionpair][0],
@@ -204,18 +204,18 @@ def write_fcirc(circ_sam, fragmentcount, fusion_result, fr="fusion_results.tsv",
             circplus = len(circ[key]) - circminu
             strand_bkstart=fusion[key[0]][4]
             strand_bkend=fusion[key[0]][6]
-            f5_start,f5_end=fusion_result[tuple(key[0].split('-'))][2].split(':')
+            f5_start,f5_end=fusion_result[tuple(key[0].split('--'))][2].split(':')
             f5_total=int(f5_end)-int(f5_start)
-            f3_start,f3_end=fusion_result[tuple(key[0].split('-'))][6].split(':')
+            f3_start,f3_end=fusion_result[tuple(key[0].split('--'))][6].split(':')
             f3_total=int(f3_end)-int(f3_start)
             if strand_bkstart=='+':
                 bkstart_pos=str(int(f5_start)+int(key[1]))
             else:
                 bkstart_pos=str(int(f5_start)+f5_total-int(key[1]))
             if strand_bkend=='+':
-                bkend_pos=str(int(fusion[key[0]][8])+(int(key[2])-int(fusion_result[tuple(key[0].split('-'))][3])))
+                bkend_pos=str(int(fusion[key[0]][8])+(int(key[2])-int(fusion_result[tuple(key[0].split('--'))][3])))
             else:
-                bkend_pos=str(int(fusion[key[0]][8])-(int(key[2])-int(fusion_result[tuple(key[0].split('-'))][3])))
+                bkend_pos=str(int(fusion[key[0]][8])-(int(key[2])-int(fusion_result[tuple(key[0].split('--'))][3])))
             string += '\t'.join((
             "No_" + str(fcirccount),
             key[0],

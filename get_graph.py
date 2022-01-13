@@ -4,7 +4,7 @@ import os
 import time
 import sys
 
-def getgraph(location):
+def getgraph(location,splitstr='--'):
     '''
     Load the fusion gene table from the local file
     :param location: a string of fusion gene table location
@@ -12,16 +12,13 @@ def getgraph(location):
     '''
     with open(location, 'r') as f:
         edge = {}
-        nodes = []
         for line in f:
             if not line.startswith('#'):
-                temp = line.rstrip().split('\t')[0].split('-')
+                temp = line.rstrip().split('\t')[0].split(splitstr)
                 start = temp[0]
                 end = temp[1]
-                if len(temp) == 3:
-                    # HLA-A
-                    start = temp[0] + '-' + temp[1]
-                    end = temp[2]
+                if len(temp) > 2:
+                    raise ValueError("# Split more than 2 genes in line {l}, please check!".format(l=line))
                 if start in edge:
                     edge[start].append(end)
                 else:
@@ -32,41 +29,6 @@ def getgraph(location):
                 else:
                     edge[end] = [start]
     return edge
-
-
-def getgenecol(location, key='Papers'):
-    '''
-
-    :param location: a string of fusion gene table location
-    :param key:
-    :return:
-    '''
-    Name_to_Col = {'Papers': -2, 'Mutations': -3, 'Samples': -4}
-    keyloc = Name_to_Col[key]
-
-    with open(location, 'r') as f:
-        sum_gene_key = {}
-        for line in f:
-            if not line.startswith('#'):
-                linelist = line.rstrip().split('\t')
-                keynum = int(linelist[keyloc])
-                temp = linelist[0].split('-')
-                start = temp[0]
-                end = temp[1]
-                if len(temp) == 3:
-                    # HLA-A
-                    start = temp[0] + '-' + temp[1]
-                    end = temp[2]
-                # update sum paper number
-                if start in sum_gene_key:
-                    sum_gene_key[start] += keynum
-                else:
-                    sum_gene_key[start] = keynum
-                if end in sum_gene_key:
-                    sum_gene_key[end] += keynum
-                else:
-                    sum_gene_key[end] = keynum
-    return sum_gene_key
 
 
 def find_bool(graph):

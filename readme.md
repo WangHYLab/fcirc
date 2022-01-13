@@ -44,7 +44,7 @@ hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 * (optional) Add gene pairs of fusions you are interested in.
 ```
 python3 build_graph.py --genome absolute__to_genome --gtf absolute__to_gtf --tab absolute_path_to_fusionpairs_table
-    
+# python3 build_graph.py --genome ../ref/Homo_sapiens.GRCh38.dna.primary_assembly.fa --gtf ../ref/Homo_sapiens.GRCh38.105.gtf --tab reference_fusion_info/fusion_table.tsv    
 ```
 
 ##### <font color='red'>  Warning: gene pairs joined with'--' not '-' should be placed in the first column of fusionpairs_table </font>
@@ -95,7 +95,7 @@ The output includes:
 **1. Fusion information** is stored in a file **'fusion_results.tsv'** as the following format:
 ```
 #Fusion_Name	5'Gene	3'Gene	5'Gene_chr	5'Gene_strand	3'Gene_chr	3'Gene_strand	5'Gene_BreakPoint_Pos	3'Gene_BreakPoint_Pos	5'and3'_Common_Breakpoint_Seq	BreakpointReads_Count	BreakpointReads	BreakpointStrand_Count(+,-)	ScanningReads_Count	ScanningReads	ScanningStrand_Count(+,-)	P-Value
-PML-RARA	PML	RARA	15	+	17	+	74023408	40348313	.	117	SRR3239817.48728782,SRR3239817.46047306,SRR3239817.46553524,SRR3239817.16929141,SRR3239817.19547854,SRR3239817.24567755,SRR3239817,......
+PML--RARA	PML	RARA	15	+	17	+	74023408	40348313	.	117	SRR3239817.48728782,SRR3239817.46047306,SRR3239817.46553524,SRR3239817.16929141,SRR3239817.19547854,SRR3239817.24567755,SRR3239817,......
 ```
 The description of each column:
 </br>**#Fusion Name** - - The name of the fusion
@@ -120,12 +120,12 @@ The description of each column:
 **2. FcircRNA information** is stored in a file **'fcircRNA_results.tsv'** as the following format:
 ```
 #FcircRNA_NO	Fusion Name	Backsplice_start	Backsplice_end	Fusion5'_BreakPoint_Pos	Fusion3'_BreakPoint_Pos	Support_FcircRNA_Reads_Count	FcircRNA_Strand_Count(+, -)	Support_FcircRNA_Reads
-No_1	PML-RARA	15:74023268:+	17:40351924:+	15:74023408:+	17:40348313:+	1	0,1	SRR3239817.23906640
-No_2	PML-RARA	15:73998438:+	17:40352058:+	15:74023408:+	17:40348313:+	3	0,3	SRR3239817.6429653,SRR3239817.3386413,SRR3239817.31829112
-No_3	PML-RARA	15:73998328:+	17:40354455:+	15:74023408:+	17:40348313:+	1	0,1	SRR3239817.3123010
-No_4	PML-RARA	15:73998193:+	17:40352044:+	15:74023408:+	17:40348313:+	5	0,5	SRR3239817.29876711,SRR3239817.36732283,SRR3239817.47058005,SRR3239817.32495621,SRR3239817.13611951
-No_5	PML-RARA	15:73998454:+	17:40352406:+	15:74023408:+	17:40348313:+	1	0,1	SRR3239817.28808693
-No_6	PML-RARA	15:74022909:+	17:40355327:+	15:74023408:+	17:40348313:+	3	0,3	SRR3239817.42010789,SRR3239817.11495312,SRR3239817.33451057
+No_1	PML--RARA	15:74023268:+	17:40351924:+	15:74023408:+	17:40348313:+	1	0,1	SRR3239817.23906640
+No_2	PML--RARA	15:73998438:+	17:40352058:+	15:74023408:+	17:40348313:+	3	0,3	SRR3239817.6429653,SRR3239817.3386413,SRR3239817.31829112
+No_3	PML--RARA	15:73998328:+	17:40354455:+	15:74023408:+	17:40348313:+	1	0,1	SRR3239817.3123010
+No_4	PML--RARA	15:73998193:+	17:40352044:+	15:74023408:+	17:40348313:+	5	0,5	SRR3239817.29876711,SRR3239817.36732283,SRR3239817.47058005,SRR3239817.32495621,SRR3239817.13611951
+No_5	PML--RARA	15:73998454:+	17:40352406:+	15:74023408:+	17:40348313:+	1	0,1	SRR3239817.28808693
+No_6	PML--RARA	15:74022909:+	17:40355327:+	15:74023408:+	17:40348313:+	3	0,3	SRR3239817.42010789,SRR3239817.11495312,SRR3239817.33451057
 ......
 ......
 ...
@@ -144,18 +144,18 @@ The description of each column:
 ## Quick start
 You can start this pipeline using a testing RNA-Seq data, whose reads are partially from a RNA-Seq dataset SRR3239817 (NCBI SRA database), for an acute leukaemia cell line NB4.
 ```
-python fcirc.py -t 4 -o fcirc_out -x transcriptome_HISAT2_index_path -f known_fusion_directory_path -1  test_fastq_path
+python fcirc.py -t 4 -o fcirc_out -x transcriptome_HISAT2_index_path -f known_fusion_directory_path -c fusion_genes_coordinate.txt -1 test_fastq_path
 ```
 It costs few minutes. If it runs successfully, some log information will be printed as following:
 ```
-[2020-04-29 11:00:32] Finish mapping reads to transcription!
-[2020-04-29 11:00:33] Finish mapping reads to fusion references U!
-[2020-04-29 11:00:33] Finish mapping reads to fusion references V!
-[2020-04-29 11:00:33] Finish dropping unmapped read in fusion references U and V!
-Find 215 Reads in U! 215 Reads in V!
-[2020-04-29 11:00:34] Finish filtering fusion-related reads in fusion references U and V!
-[2020-04-29 11:00:36] Finish mapping reads to inferred fusion references!
+[2022-01-13 21:48:19] Start running # fcirc/fcirc.py -t 1 -o fcirc_test -x ref/grch38_tran/genome_tran -f fcirc/fusion_total_index/ -1 fcirc/test_data/test.fastq
+[2022-01-13 21:48:27] Finish mapping reads to transcription!
+[2022-01-13 21:48:27] Finish mapping reads to fusion references U!
+[2022-01-13 21:48:27] Finish mapping reads to fusion references V!
+[2022-01-13 21:48:27] Finish dropping unmapped read in fusion references U and V!
+Find 274 Reads in U! 274 Reads in V!
+[2022-01-13 21:48:27] Finish filtering fusion-related reads in fusion references U and V!
+[2022-01-13 21:48:29] Finish mapping reads to inferred fusion references!
 Find 22 kind(s) of fcircRNAs!
-[2020-04-29 11:00:36] Finish all!See the result in 'fcircRNA_results.tsv'!
-```
+[2022-01-13 21:48:29] Finish all!See the result in 'fcircRNA_results.tsv'!```
 

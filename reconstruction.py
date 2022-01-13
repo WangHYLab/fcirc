@@ -128,9 +128,9 @@ class ReconGene:
 
     def write_inferred_fusion_gene(self):
         self.Aseq, self.Bseq = (seq.upper() for seq in self.readseq())
-        self.reconstructed_seqs[self.GeneAName + '-' + self.GeneBName] = connect_sequence(
+        self.reconstructed_seqs[self.GeneAName + '--' + self.GeneBName] = connect_sequence(
             self.Aseq[:self.GeneAPointPos], self.Bseq[self.GeneBPointPos:])
-        self.reconstructed_seqs[self.GeneBName + '-' + self.GeneAName] = connect_sequence(
+        self.reconstructed_seqs[self.GeneBName + '--' + self.GeneAName] = connect_sequence(
             self.Bseq[:self.GeneBPointPos], self.Aseq[self.GeneAPointPos:])
         with open("temp/inferred_fusion.fa", 'a') as f:
             temp = ''
@@ -202,7 +202,7 @@ def build_fusion(fasta_path):
     os.system("hisat2-build -q {fasta} {idx}".format(fasta=fasta_path, idx=fasta_path))
 
 
-def reconstruct(filtered_U_sam, filtered_V_sam, Gene_coordinate, fusion_idx_dir=''):
+def reconstruct(filtered_U_sam, filtered_V_sam, Gene_coordinate, fusion_idx_dir):
     Usam = tuple(pysam.AlignmentFile(filtered_U_sam, 'r'))
     Vsam = tuple(pysam.AlignmentFile(filtered_V_sam, 'r'))
     refNameDic = {}
@@ -221,13 +221,9 @@ def reconstruct(filtered_U_sam, filtered_V_sam, Gene_coordinate, fusion_idx_dir=
     with open(os.path.join(fusion_idx_dir, "fusion_table.tsv"), 'r') as f:
         for line in f:
             if not line.startswith('#'):
-                temp = line.rstrip().split('\t')[0].split('-')
+                temp = line.rstrip().split('\t')[0].split('--')
                 start = temp[0]
                 end = temp[1]
-                if len(temp) == 3:
-                    # HLA-A
-                    start = temp[0] + '-' + temp[1]
-                    end = temp[2]
                 if start in refNameDic and end in refNameDic:
                     fusionnameDic[line.split('\t')[0]] = refNameDic[start] & refNameDic[end]
 
@@ -282,7 +278,7 @@ def reconstruct(filtered_U_sam, filtered_V_sam, Gene_coordinate, fusion_idx_dir=
                             f3_seq=recgene.Bseq[recgene.GeneBPointPos:recgene.GeneBPointPos + 10],
                             f53_com=common_seq(recgene.Aseq[recgene.GeneAPointPos - 10:recgene.GeneAPointPos],
                                                recgene.Bseq[recgene.GeneBPointPos:recgene.GeneBPointPos + 10]),
-                            seqlen=str(len(recgene.reconstructed_seqs['-'.join((recgene.GeneAName, recgene.GeneBName))]))))
+                            seqlen=str(len(recgene.reconstructed_seqs['--'.join((recgene.GeneAName, recgene.GeneBName))]))))
                         # start:f5_end   f3_start:f3_end
                     f.write(
                         "{fusion5}\t{fusion3}\t{f5_chr}\t{f5_strand}\t{f5_coords}\t{f5_pos}\t{f3_chr}\t{f3_strand}\t{f3_coords}\t{f3_pos}\t{f5_seq}\t{f3_seq}\t{f53_com}\t{seqlen}\n".format(
@@ -301,7 +297,7 @@ def reconstruct(filtered_U_sam, filtered_V_sam, Gene_coordinate, fusion_idx_dir=
                             f53_com=common_seq(recgene.Bseq[recgene.GeneBPointPos - 10:recgene.GeneBPointPos],
                                                recgene.Aseq[recgene.GeneAPointPos:recgene.GeneAPointPos + 10]),
                             seqlen=str(
-                                len(recgene.reconstructed_seqs['-'.join((recgene.GeneBName, recgene.GeneAName))]))))
+                                len(recgene.reconstructed_seqs['--'.join((recgene.GeneBName, recgene.GeneAName))]))))
 
     if fusionnameDic != {}:
         build_fusion("temp/inferred_fusion.fa")
