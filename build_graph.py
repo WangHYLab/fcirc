@@ -114,9 +114,9 @@ def Get_geneCoordinate(gtf, od):
                         strand = '1'
                     else:
                         strand = '-1'
-                    gene_coordinates = '\t'.join([chrn, strand, start, end, gene, '\n'])
                     if gene in synonyms_dict:
                         gene = synonyms_dict[gene]
+                    gene_coordinates = '\t'.join([chrn, strand, start, end, gene, '\n'])
                     if gene not in GeneCoordinate_dict:
                         GeneCoordinate_dict[gene] = [chrn, strand, start, end, gene]
                     Out.write(gene_coordinates)
