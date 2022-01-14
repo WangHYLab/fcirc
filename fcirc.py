@@ -15,7 +15,7 @@ from write_results import write_fusion, write_fcirc
 
 
 def version():
-    print("fcirc (fusion circRNA identifier)    Version: 1.0.1")
+    print("fcirc (fusion circRNA identifier)    Version: 1.0.2")
 
 
 def usage():
