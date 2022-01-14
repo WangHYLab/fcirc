@@ -31,7 +31,7 @@ pip install cutadapt
 Make sure that **hisat2** and **samtools** are added to environment variables so that Fcirc can invoke them.
 
 #### Preparing genome resource and known fusion-pairs
-* The genome resource is hisat2 index, which can be downloaded from [hisat2 website](http://ccb.jhu.edu/software/hisat2/index.shtml). For human fusion transcript detection, it's recommended to use genome_tran of GRCh38 or GRCh37. It can also be finished with [FASTA sequence file and annotation GTF file]((http://asia.ensembl.org/info/data/ftp/index.html)) by hisat2 script.
+* The genome resource is hisat2 index, which can be downloaded from [hisat2 website](http://ccb.jhu.edu/software/hisat2/index.shtml). For human fusion transcript detection, it's recommended to use genome_tran of GRCh38 or GRCh37. It can also be finished with FASTA sequence file and annotation GTF file by hisat2 script.
 
 * Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be built by hisat2-build in reference_fusion_info directory as follows:
 
@@ -42,7 +42,7 @@ hisat2-build fusiongenes_ref_U.fa fusiongenes_ref_U
 hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 ```
 
-* (optional) Add gene pairs of fusions (in fusion_table.tsv) you are interested in.
+* (optional) Add gene pairs of fusions in **reference_fusion_info/fusion_table.tsv** with 3 columns (gene-pairs, 5'gene, 3'gene) you are interested in. For human, [genome FASTA file and annotation GTF file](http://asia.ensembl.org/info/data/ftp/index.html) can be downloaded here.
 ```
 python3 build_graph.py --genome absolute__to_genome --gtf absolute__to_gtf --tab absolute_path_to_fusionpairs_table
 # e.g. python3 build_graph.py --genome ../ref/Homo_sapiens.GRCh38.dna.primary_assembly.fa --gtf ../ref/Homo_sapiens.GRCh38.105.gtf --tab reference_fusion_info/fusion_table.tsv  --outdir GRCh38_fusion_index  
