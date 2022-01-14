@@ -36,15 +36,16 @@ Make sure that **hisat2** and **samtools** are added to environment variables so
 * Known fusion-pairs can be downloaded from [Github page](https://github.com/WangHYLab/fcirc) and bipartite fusions index can be built by hisat2-build in reference_fusion_info directory as follows:
 
 ```
-cd reference_fusion_info
+unzip fusion_total_index.zip
+cd fusion_total_index
 hisat2-build fusiongenes_ref_U.fa fusiongenes_ref_U
 hisat2-build fusiongenes_ref_V.fa fusiongenes_ref_V
 ```
 
-* (optional) Add gene pairs of fusions you are interested in.
+* (optional) Add gene pairs of fusions (in fusion_table.tsv) you are interested in.
 ```
 python3 build_graph.py --genome absolute__to_genome --gtf absolute__to_gtf --tab absolute_path_to_fusionpairs_table
-# python3 build_graph.py --genome ../ref/Homo_sapiens.GRCh38.dna.primary_assembly.fa --gtf ../ref/Homo_sapiens.GRCh38.105.gtf --tab reference_fusion_info/fusion_table.tsv    
+# e.g. python3 build_graph.py --genome ../ref/Homo_sapiens.GRCh38.dna.primary_assembly.fa --gtf ../ref/Homo_sapiens.GRCh38.105.gtf --tab reference_fusion_info/fusion_table.tsv  --outdir GRCh38_fusion_index  
 ```
 
 ##### <font color='red'>  Warning: gene pairs joined with'--' not '-' should be placed in the first column of fusionpairs_table </font>
