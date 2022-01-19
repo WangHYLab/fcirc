@@ -65,9 +65,7 @@ Arguments can be used as following:
         -x <ht2-trans-idx>, --trans_idx <ht2-trans-idx>
             transcription index filename prefix (minus trailing .X.ht2)
         -f <ht2-fusion-idx-dir>, --fusion_idx_dir <ht2-fusion-idx-dir>
-            fusion index directory (contains fusiongenes_ref_U and fusiongenes_ref_V)
-        -c <fusion-genes-coordinates> --fusion_genes_coord
-            fusion genes coordinates file (defalut: fusion_genes_coordinate.txt)    
+            fusion index directory (contains fusiongenes_ref_U and fusiongenes_ref_V) 
         -1 <fastq1>, --file1 <fastq1>
             fastq file 1 (single-end pattern: only -1)
         -2 <fastq2>, --file2 <fastq2>
@@ -76,10 +74,12 @@ Arguments can be used as following:
     Optional:
         -q <quality_val>
            the minimum phred qulaity of read(default:0)
+        -c <fusion-genes-coordinates> --fusion_genes_coord
+           fusion genes coordinates file (defalut: fusion_genes_coordinate.txt in fusion index directory)   
         -o <output_dir>, --output <outout_dir>
-            output file directory (default: .)
+           output file directory (default: .)
         -t <int>, --thread <int>
-            number of hisat2 alignment and pysam filter threads to launch (default: 1)    
+           number of hisat2 alignment and pysam filter threads to launch (default: 1)    
 
     Others:
         -h, --help
