@@ -149,7 +149,7 @@ python fcirc.py -t 4 -o fcirc_out -x transcriptome_HISAT2_index_path -f known_fu
 ```
 It costs few minutes. If it runs successfully, some log information will be printed as following:
 ```
-[2022-01-13 21:48:19] Start running # fcirc/fcirc.py -t 1 -o fcirc_test -x ref/grch38_tran/genome_tran -f fcirc/fusion_total_index/ -1 fcirc/test_data/test.fastq
+[2022-01-13 21:48:19] Start running # fcirc/fcirc.py -t 1 -o fcirc_test -x ref/grch38_tran/genome_tran -f fcirc/fusion_total_index/ -1 fcirc/test_data/test.fastq.gz
 [2022-01-13 21:48:27] Finish mapping reads to transcription!
 [2022-01-13 21:48:27] Finish mapping reads to fusion references U!
 [2022-01-13 21:48:27] Finish mapping reads to fusion references V!
