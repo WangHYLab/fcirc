@@ -160,3 +160,6 @@ Find 274 Reads in U! 274 Reads in V!
 Find 22 kind(s) of fcircRNAs!
 [2022-01-13 21:48:29] Finish all!See the result in 'fcircRNA_results.tsv'!
 ```
+
+## Citation
+Cai Z, Xue H, Xu Y, et al. Fcirc: A comprehensive pipeline for the exploration of fusion linear and circular RNAs. Gigascience. 2020;9(6):giaa054. doi: [10.1093/gigascience/giaa054](https://doi.org/10.1093/gigascience/giaa054)
